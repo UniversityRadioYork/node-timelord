@@ -1,0 +1,19 @@
+{
+  "api_url": "https:\/\/ury.org.uk\/api",
+  "ajax_limit_default": 25,
+  "base_url": "https:\/\/ury.org.uk\/myradio\/",
+  "rewrite_url": true,
+  "schedule_url": "\/\/ury.org.uk\/schedule",
+  "timezone": "Europe\/London",
+  "default_module": "MyRadio",
+  "default_action": "default",
+  "webcam_prefix": "\/\/ury.org.uk\/webcam\/",
+  "bra_uri": "ury.org.uk\/bra",
+  "bra_user": "test",
+  "bra_pass": "P3BBL35",
+  "short_name": "URY",
+  "long_name": "University Radio York",
+  "founded": "1967",
+  "facebook": "https:\/\/www.facebook.com\/URY1350",
+  "audio_upload_max_size": 80
+}

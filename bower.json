@@ -1,0 +1,31 @@
+{
+  "name": "node-timelord",
+  "version": "0.0.0",
+  "homepage": "https://github.com/UniversityRadioYork/node-timelord",
+  "authors": [
+    "Chris Taylor <christhebaron@gmail.com>"
+  ],
+  "description": "NodeJS implementation of Timelord",
+  "main": "index.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "timelord"
+  ],
+  "license": "ISC",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "jquery": "^2.1.4",
+    "moment": "^2.10.6",
+    "jquery-ui": "^1.11.4"
+  }
+}

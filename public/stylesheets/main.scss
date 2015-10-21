@@ -1,0 +1,143 @@
+/* Set up some variables */
+$font_main: "Source Sans Pro", "sans-serif";
+$font_bracket: "Times New Roman", "serif";
+
+$footer_height: 70px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: $footer_height;
+  background-color: black;
+  font-family: $font_main;
+  color: white;
+  font-size: 9px;
+}
+
+footer.sticky {
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: $footer_height;
+
+  .container {
+	margin-top: 10px;
+  }
+
+}
+
+#date {
+
+  font-weight: bold;
+  font-size: 2em;
+
+}
+
+#state {
+
+  font-width: bold;
+  font-size: 4.5em;
+
+  &.studio1 {
+
+	color: red;
+
+  }
+
+}
+
+#time {
+
+  font-size: 13em;
+
+}
+
+#current-show-title {
+
+  font-size: 3.8em;
+  font-variant: small-caps;
+
+  &::before, &::after {
+
+	font-family: $font_bracket;
+	font-size: 140%;
+	letter-spacing: 2px;
+	text-shadow: 0 0 30px #17A;
+
+  }
+
+  &::before {
+
+	content: "((";
+
+  }
+
+  &::after {
+
+	content: "))";
+
+  }
+
+}
+
+.up-next {
+
+  font-size: 2.8em;
+  font-variant: small-caps;
+
+}
+
+#alerts {
+
+  & > * {
+
+	padding: 0;
+
+	height: $footer_height;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	border: 2px solid white;
+
+	font-size: 2.5em;
+
+	&.worse {
+
+	  border: 3px solid #F00;
+	  color: #F00;
+
+	  font-weight: bold;
+
+	}
+
+	&.bad {
+
+	  border: 3px solid #F00;
+	  color: #F00;
+
+	}
+
+	&.standby {
+
+	  border: 3px solid orange;
+	  color: orange;
+
+	}
+
+	&.good {
+
+	  border: 3px solid #00FF00;
+	  color: #00FF00;
+
+	}
+
+  }
+
+}
