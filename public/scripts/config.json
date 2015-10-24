@@ -3,10 +3,17 @@
   "api_key": "9C4KCqywpDfzIk7OEhYO3tOjDJWftg2sZ65fKT5fTGCWvshnz5tinVt1MiqvETM4eZYDtQbRs13GoTCNB8HTsmQQlcDwFmRo8Xw3uHQoycYkumyTVGdXbxtt1S2Ow7RFbK",
   "api_endpoints": {
 	"remoteStreams": "selector/remotestreams/",
-	"isSilence": "selector/1/issilence",
-	"isObitHappening": "selector/1/isobithappening/",
+	"isSilence": "selector/issilence",
+	"isObitHappening": "selector/isobithappening/",
 	"statusAtTime": "selector/statusattime/",
 	"currentAndNext": "timeslot/currentandnext/"
+  },
+  "next_show_filtering": {
+	"n": 2,
+	"filter": [
+	  1,
+	  2
+	]
   },
   "short_name": "URY",
   "long_name": "University Radio York"
