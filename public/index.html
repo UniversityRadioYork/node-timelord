@@ -6,12 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- bower:css -->
-	<link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.css' />
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
 	<!-- endbower -->
 
 	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 
 	<link href='stylesheets/main.css' rel='stylesheet' type='text/css'>
+
+	<link href="https://ury.org.uk/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 
 </head>
 <body>
@@ -46,30 +48,42 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div id="breaking-news" class="row hidden">
 			<div class="col-xs-12">
-				<span id="current-show-title">
-					!!URY!!
-				</span>
+					<span id="content">
+						Good News Everyone
+					</span>
 			</div>
 		</div>
 
-		<div id="next-shows">
+		<div id="hide-when-breaking-news">
 
-			<div class="row">
+			<div class="row" id="current-show-title">
 				<div class="col-xs-12">
-				<span id="next0" class="up-next">
-					UP NEXT: <span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
+				<span class="content">
+					!!URY!!
 				</span>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-xs-12">
-				<span id="next1" class="up-next">
+			<div id="next-shows">
+
+				<div class="row">
+					<div class="col-xs-12">
+				<span id="next0" class="up-next">
 					UP NEXT: <span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
 				</span>
+					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+				<span id="next1" class="up-next">
+					<span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
+				</span>
+					</div>
+				</div>
+
 			</div>
 
 		</div>
