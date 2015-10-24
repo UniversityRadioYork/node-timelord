@@ -6,7 +6,8 @@
 	"isSilence": "selector/issilence",
 	"isObitHappening": "selector/isobithappening/",
 	"statusAtTime": "selector/statusattime/",
-	"currentAndNext": "timeslot/currentandnext/"
+	"currentAndNext": "timeslot/currentandnext/",
+	"breakingNews": "news/latestnewsitem/3"
   },
   "next_show_filtering": {
 	"n": 2,
@@ -15,6 +16,7 @@
 	  2
 	]
   },
+  "request_timeout": 3000,
   "short_name": "URY",
   "long_name": "University Radio York"
 }
