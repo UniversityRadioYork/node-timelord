@@ -39,15 +39,25 @@ footer.sticky {
 
 }
 
-#state {
+#studio {
 
-  font-width: bold;
-  font-size: 4.5em;
+  font-weight: bold;
+  font-size: 6.5em;
 
   &.studio1 {
-
 	color: red;
+  }
 
+  &.studio2 {
+	color: #0044BA;
+  }
+
+  &.studio3 {
+	color: #0F0;
+  }
+
+  &.studio4 {
+	color: #bb00dc;
   }
 
 }
