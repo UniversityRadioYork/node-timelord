@@ -15,7 +15,7 @@ body {
   background-color: black;
   font-family: $font_main;
   color: white;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 footer.sticky {
@@ -73,26 +73,42 @@ footer.sticky {
   font-size: 3.8em;
   font-variant: small-caps;
 
-  &::before, &::after {
+  .content {
 
-	font-family: $font_bracket;
-	font-size: 140%;
-	letter-spacing: 2px;
-	text-shadow: 0 0 30px #17A;
+	&::before, &::after {
+
+	  font-family: $font_bracket;
+	  font-size: 140%;
+	  letter-spacing: 2px;
+	  text-shadow: 0 0 30px #17A;
+
+	}
+
+	&::before {
+
+	  content: "((";
+
+	}
+
+	&::after {
+
+	  content: "))";
+
+	}
+
+	.news {
+	  color: #2CDFFF;
+	}
 
   }
 
-  &::before {
+}
 
-	content: "((";
+#breaking-news {
 
-  }
-
-  &::after {
-
-	content: "))";
-
-  }
+  font-size: 5em;
+  font-weight: bold;
+  color: #F00;
 
 }
 
