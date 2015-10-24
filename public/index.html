@@ -19,10 +19,12 @@
 <div class="container">
 
 	<div class="row">
-		<div class="pull-right">
-			<span id="date">
-				!!DATE!!
-			</span>
+		<div class="col-xs-12">
+			<div class="pull-right">
+				<span id="date">
+					!!DATE!!
+				</span>
+			</div>
 		</div>
 	</div>
 
@@ -31,7 +33,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<span id="studio">
-					!!STUDIO STATE!!
+					!!STUDIO!!
 				</span>
 			</div>
 		</div>
@@ -52,20 +54,24 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-xs-12">
-				<span class="up-next">
-					UP NEXT: <span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
-				</span>
-			</div>
-		</div>
+		<div id="next-shows">
 
-		<div class="row">
-			<div class="col-xs-12">
-				<span class="up-next">
+			<div class="row">
+				<div class="col-xs-12">
+				<span id="next0" class="up-next">
 					UP NEXT: <span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
 				</span>
+				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+				<span id="next1" class="up-next">
+					UP NEXT: <span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
+				</span>
+				</div>
+			</div>
+
 		</div>
 
 	</div>
@@ -76,12 +82,12 @@
 
 	<div class="container-fluid">
 		<div class="row" id="alerts">
-			<div class="col-xs-2 good" id="s1">Studio 1</div>
-			<div class="col-xs-2 standby" id="s2">Studio 2</div>
-			<div class="col-xs-2 bad" id="ob1">OB 1</div>
+			<div class="col-xs-2" id="s1">Studio 1</div>
+			<div class="col-xs-2" id="s2">Studio 2</div>
+			<div class="col-xs-2" id="ob1">OB 1</div>
 			<div class="col-xs-2" id="ob2">OB 2</div>
 			<div class="col-xs-2" id="obit">OBIT</div>
-			<div class="col-xs-2 worse" id="dead">DEAD AIR</div>
+			<div class="col-xs-2" id="dead">DEAD AIR</div>
 		</div>
 	</div>
 
