@@ -32,7 +32,7 @@ module.exports = function (grunt) {
 		uglify: {
 			main: {
 				files: {
-					'public/scripts/timelord.min.js' : 'public/scripts/timelord.js'
+					'public/scripts/timelord.min.js': 'public/scripts/timelord.js'
 				},
 				options: {
 					sourceMap: true
@@ -40,12 +40,20 @@ module.exports = function (grunt) {
 			}
 		},
 		connect: {
-			server: {
+			development: {
 				options: {
 					port: 8000,
 					hostname: '*',
 					base: ['public'],
 					livereload: true
+				}
+			},
+			production: {
+				options: {
+					port: 8000,
+					hostname: 'localhost',
+					base: ['public'],
+					keepalive: true
 				}
 			}
 		},
@@ -74,10 +82,6 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.event.on('watch', function(action, filepath, target) {
-		grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
-	});
-
 	grunt.loadNpmTasks('grunt-wiredep');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-connect');
@@ -85,6 +89,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	// Default task(s).
-	grunt.registerTask('default', ['wiredep', 'sass', 'uglify', 'connect', 'watch']);
+	grunt.registerTask('default', ['wiredep', 'sass', 'uglify', 'connect:development', 'watch']);
+
+	// Run for production server
+	grunt.registerTask('up', ['wiredep', 'sass', 'uglify', 'connect:production']);
 
 };
