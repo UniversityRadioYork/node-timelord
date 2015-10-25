@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 			}
 		},
 		connect: {
-			development: {
+			server: {
 				options: {
 					port: 8000,
 					hostname: '*',
@@ -48,14 +48,6 @@ module.exports = function (grunt) {
 					livereload: true
 				}
 			},
-			production: {
-				options: {
-					port: 8000,
-					hostname: 'localhost',
-					base: ['public'],
-					keepalive: true
-				}
-			}
 		},
 		watch: {
 			stylesheets: {
@@ -89,9 +81,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	// Default task(s).
-	grunt.registerTask('default', ['wiredep', 'sass', 'uglify', 'connect:development', 'watch']);
+	grunt.registerTask('default', ['wiredep', 'sass', 'uglify', 'connect', 'watch']);
 
-	// Run for production server
-	grunt.registerTask('up', ['wiredep', 'sass', 'uglify', 'connect:production']);
+	// Just for compiling things
+	grunt.registerTask('build', ['wiredep', 'sass', 'uglify']);
 
 };
