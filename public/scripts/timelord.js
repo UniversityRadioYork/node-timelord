@@ -98,7 +98,7 @@ window.Timelord = {
 		Timelord.updateAlerts();
 
 		// Update the breaking news alert
-		Timelord.updateBreakingNews();
+		//Timelord.updateBreakingNews(); // @TODO Fix this
 
 	},
 
@@ -285,11 +285,11 @@ window.Timelord = {
 	/**
 	 * Sets the breaking news alert
 	 *
-	 * @param {String|null} news
+	 * @param {String|null|false} news
 	 */
 	setBreakingNews: function (news) {
 
-		if (news != null) {
+		if (news != null && news !== false) {
 			Timelord._$('#breaking-news').removeClass('hidden').html(news);
 			Timelord._$('#hide-when-breaking-news').addClass('hidden');
 		} else {
@@ -322,8 +322,12 @@ window.Timelord = {
 	setSilenceAlert: function (time) {
 
 		if (time >= 20) {
-			Timelord.setAlert('dead', 'worse');
-		} else if (time >= 5) {
+			Timelord.setBreakingNews("RADIO SILENCE DETECTED");
+		} else {
+			Timelord.setBreakingNews(false);
+		}
+
+		if (time >= 5) {
 			Timelord.setAlert('dead', 'bad');
 		} else {
 			Timelord.resetAlert('dead');
