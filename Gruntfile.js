@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 		wiredep: {
 			task: {
 				src: [
-					'public/**/*.html',   // .html support...
+					'bin/**/*.html',   // .html support...
 				],
 				overrides: {
 					"bootstrap": {
@@ -21,19 +21,26 @@ module.exports = function (grunt) {
 		},
 		sass: {
 			options: {
-				sourceMap: true
+				sourceMap: true,
+				outputStyle: 'compressed'
 			},
 			dist: {
 				files: {
-					'public/stylesheets/main.css': 'public/stylesheets/main.scss'
+					'bin/stylesheets/main.css': 'src/stylesheets/main.scss'
 				}
 			}
 		},
 		uglify: {
 			main: {
-				files: {
-					'public/scripts/timelord.min.js': 'public/scripts/timelord.js'
-				},
+				files: [
+					{
+						expand: true,
+						cwd: 'src/scripts/',
+						src: '**/*.js',
+						dest: 'bin/scripts/',
+						ext: '.min.js'
+					}
+				],
 				options: {
 					sourceMap: true
 				}
@@ -44,33 +51,59 @@ module.exports = function (grunt) {
 				options: {
 					port: 8000,
 					hostname: '*',
-					base: ['public'],
+					base: ['bin'],
 					livereload: true
 				}
 			},
 		},
 		watch: {
 			stylesheets: {
-				files: ['public/**/*.scss'],
+				files: ['src/**/*.scss'],
 				tasks: ['sass'],
 				options: {
 					livereload: true
 				}
 			},
 			scripts: {
-				files: ['public/**/*.js', '!public/**/*.min.js'],
+				files: ['src/**/*.js'],
 				tasks: ['uglify'],
 				options: {
 					livereload: true
 				}
 			},
 			pages: {
-				files: ['public/**/*.html'],
+				files: ['src/**/*.html'],
 				tasks: ['wiredep'],
 				options: {
 					livereload: true
 				}
 			},
+		},
+		copy: {
+			main: {
+				files: [
+					{
+						expand: true,
+						cwd: 'src/',
+						src: '**/*.html',
+						dest: 'bin/'
+					},
+					{
+						src: 'config.json',
+						dest: 'bin/config.json'
+					},
+				]
+			}
+		},
+		clean: {
+			main: {
+				src: ["bin/"]
+			}
+		},
+		auto_install: {
+			main: {
+				local: {}
+			}
 		}
 	});
 
@@ -79,11 +112,19 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-auto-install');
 
 	// Default task(s).
-	grunt.registerTask('default', ['wiredep', 'sass', 'uglify', 'connect', 'watch']);
+	grunt.registerTask('default', ['build:dev', 'connect', 'watch']);
 
 	// Just for compiling things
-	grunt.registerTask('build', ['wiredep', 'sass', 'uglify']);
+	grunt.registerTask('build', ['clean', 'build:noclean']);
+
+	grunt.registerTask('build:noclean', ['auto_install', 'copy', 'wiredep', 'sass', 'uglify']);
+
+	// Just for compiling things
+	grunt.registerTask('build:dev', ['copy', 'wiredep', 'sass', 'uglify']);
 
 };

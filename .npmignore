@@ -101,9 +101,5 @@ bower_components
 ### Now some custom things ###
 
 # The grunt task generates these when serving
-/public/scripts/*.min.js
-/public/scripts/*.min.js.map
 
-# Same with these
-/public/stylesheets/*.css
-/public/stylesheets/*.css.map
+/bin
