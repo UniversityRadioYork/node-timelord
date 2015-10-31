@@ -321,13 +321,13 @@ window.Timelord = {
 	 */
 	setSilenceAlert: function (time) {
 
-		if (time >= 20) {
+		if (time >= Timelord._config.silence_timeouts.long) {
 			Timelord.setBreakingNews("RADIO SILENCE DETECTED");
 		} else {
 			Timelord.setBreakingNews(false);
 		}
 
-		if (time >= 5) {
+		if (time >= Timelord._config.silence_timeouts.short) {
 			Timelord.setAlert('dead', 'bad');
 		} else {
 			Timelord.resetAlert('dead');

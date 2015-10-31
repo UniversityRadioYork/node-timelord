@@ -16,6 +16,10 @@
 	  2
 	]
   },
+  "silence_timeouts": {
+	"short": 5,
+	"long": 20
+  },
   "request_timeout": 3000,
   "short_name": "URY",
   "long_name": "University Radio York"
