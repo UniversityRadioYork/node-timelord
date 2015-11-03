@@ -9,9 +9,10 @@ NodeJS implementation of Timelord
 ### Development
 
 ```sh
-git clone github.com/UniversityRadioYork/node-timelord/
-cd node-timelord
-grunt
+$ git clone github.com/UniversityRadioYork/node-timelord/
+$ cd node-timelord
+$ npm install # you should only need to run this once
+$ grunt
 # browse to localhost:8000 to see it
 # any changes to files in `src/` will be compiled and the browser will automatically reload 
 ```
@@ -23,8 +24,11 @@ You will need some kind of way of serving static files from the `/bin` folder. I
 ```sh
 $ git clone github.com/UniversityRadioYork/node-timelord/
 $ cd node-timelord
-$ grunt build #will complile all files needed into /bin/
+$ npm install # you should only need to run this once
+$ grunt build #will compile all files needed into /bin/
 ```
+
+If you want to do a development build without clearing out `/bin` then run `grunt build:noclean` instead.
 
 ## Dependencies
 
