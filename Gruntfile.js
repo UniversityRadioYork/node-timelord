@@ -117,14 +117,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-auto-install');
 
 	// Default task(s).
-	grunt.registerTask('default', ['build:dev', 'connect', 'watch']);
+	grunt.registerTask('default', ['build', 'connect', 'watch']);
 
 	// Just for compiling things
 	grunt.registerTask('build', ['clean', 'build:noclean']);
 
 	grunt.registerTask('build:noclean', ['auto_install', 'copy', 'wiredep', 'sass', 'uglify']);
-
-	// Just for compiling things
-	grunt.registerTask('build:dev', ['copy', 'wiredep', 'sass', 'uglify']);
 
 };
