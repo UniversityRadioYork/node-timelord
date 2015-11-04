@@ -1,6 +1,6 @@
 $(function () {
 
-	$.getJSON('/config.json', function (config) {
+	$.getJSON('config.json', function (config) {
 
 		Timelord.init($, config);
 
