@@ -98,7 +98,7 @@ window.Timelord = {
 		Timelord.updateAlerts();
 
 		// Update the breaking news alert
-		//Timelord.updateBreakingNews(); // @TODO Fix this
+		Timelord.updateBreakingNews();
 
 	},
 
