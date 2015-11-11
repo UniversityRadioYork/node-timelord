@@ -162,13 +162,24 @@ footer.sticky {
 	padding: 0;
 
 	height: $footer_height;
+
+	padding-top: 15px;
+
 	@media (max-width: $footer-mobile-breakpoint) {
 	  height: $footer-mobile-height;
+
+	  padding-top: 8px;
 	}
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	//display: -webkit-box;
+	//display: -ms-flexbox;
+	//display: -webkit-flex;
+	//display: flex;
+
+	//justify-content: center;
+	//align-items: center;
+
+	text-align: center;
 
 	border: 2px solid white;
 
