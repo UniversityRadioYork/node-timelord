@@ -488,7 +488,10 @@ window.Timelord = {
 
 		if (!options.hasOwnProperty('error')) {
 			options.error = function () {// Refresh the page
-				window.location = window.location.href;
+				console.error("Failed to call API");
+				if(Timelord._config.refresh_on_error){
+					window.location = window.location.href;
+				}
 			};
 		}
 
