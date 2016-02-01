@@ -22,5 +22,6 @@
   },
   "request_timeout": 3000,
   "short_name": "URY",
-  "long_name": "University Radio York"
+  "long_name": "University Radio York",
+  "refresh_on_error": false
 }
