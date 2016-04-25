@@ -46,8 +46,7 @@ window.Timelord = {
 		Timelord.news = (minute < 2 ||
 			(
 				minute == 59 &&
-				second >= 15 &&
-				second <= 52
+				second >= 15
 			)
 		);
 
