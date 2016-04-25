@@ -51,35 +51,20 @@ window.Timelord = {
 		);
 
 		if (Timelord.news) {
-
 			if (minute == 59) {
-
 				if (second < 45) {
-
 					Timelord.setCurrentShowName("News intro in " + (45 - second) + "...", 'news');
-
 				} else if (second <= 52) {
-
 					Timelord.setCurrentShowName((52 - second) + " until voice over...", 'news');
-
 				} else {
-
 					Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
-
 				}
-
-			} else if (minute == 0) {
-
+			} else if (minute === 0) {
 				Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
-
 			} else {
-
 				Timelord.setCurrentShowName('News ends in ' + (60 - second) + '...', 'news');
-
 			}
-
 		}
-
 	},
 
 	/**
@@ -288,7 +273,7 @@ window.Timelord = {
 	 */
 	setBreakingNews: function (news) {
 
-		if (news != null && news !== false) {
+		if (news !== null && news !== false) {
 			Timelord._$('#breaking-news').removeClass('hidden').html(news);
 			Timelord._$('#hide-when-breaking-news').addClass('hidden');
 		} else {
@@ -351,19 +336,19 @@ window.Timelord = {
 		Timelord._$('#studio').addClass('studio' + studio);
 
 		switch (studio) {
-			case 1:
-			case 2:
-				Timelord._$('#studio').html('Studio ' + studio + ' is On Air');
-				break;
-			case 3:
-				Timelord._$('#studio').html('Jukebox is On Air');
-				break;
-			case 4:
-				Timelord._$('#studio').html('Outside Broadcast');
-				break;
-			default:
-				Timelord._$('#studio').html('Unknown Output');
-				break;
+		case 1:
+		case 2:
+			Timelord._$('#studio').html('Studio ' + studio + ' is On Air');
+			break;
+		case 3:
+			Timelord._$('#studio').html('Jukebox is On Air');
+			break;
+		case 4:
+			Timelord._$('#studio').html('Outside Broadcast');
+			break;
+		default:
+			Timelord._$('#studio').html('Unknown Output');
+			break;
 		}
 
 	},
@@ -403,7 +388,7 @@ window.Timelord = {
 	 */
 	setNextShowsInfo: function (shows) {
 
-		if (!shows || shows[0] == null) {
+		if (!shows || shows[0] === null) {
 			Timelord._$('#next-shows').addClass('hidden');
 		} else {
 			Timelord._$('#next-shows').removeClass('hidden');
