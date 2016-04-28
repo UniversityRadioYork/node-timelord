@@ -24,24 +24,34 @@ window.Timelord = {
 		// @TODO See if this can be removed
 		setTimeout("window.location = window.location.href", 18000000);
 
-		setInterval(Timelord.updateTime, 250);
-		setInterval(Timelord.updateNewsMessage, 250);
-
+		Timelord.loop();
 		Timelord.updateView();
 
 	},
 
-	updateTime: function () {
-
-		Timelord._$('#time').text(moment().format("HH:mm:ss"));
-		Timelord._$('#date').text(moment().format("Do MMMM YYYY"));
+	loop: function() {
+		var init = moment();
+		Timelord.updateTime(init);
+		Timelord.updateNewsMessage(init);
+		var now = moment();
+		var timeout = (now.seconds() - init.seconds() == 0) ?
+		    1000 - now.milliseconds() : 0
+		setTimeout(Timelord.loop,
+			   timeout);
 
 	},
 
-	updateNewsMessage: function () {
+	updateTime: function (t) {
 
-		var second = moment().seconds();
-		var minute = moment().minutes();
+		Timelord._$('#time').text(t.format("HH:mm:ss"));
+		Timelord._$('#date').text(t.format("Do MMMM YYYY"));
+
+	},
+
+	updateNewsMessage: function (t) {
+
+		var second = t.seconds();
+		var minute = t.minutes();
 
 		Timelord.news = (minute < 2 ||
 			(
