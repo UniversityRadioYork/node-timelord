@@ -97,7 +97,10 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			main: {
-				src: ["bin/"]
+				src: [
+					"bin/*",
+					"!bin/bower_components/**"
+				]
 			}
 		},
 		auto_install: {
