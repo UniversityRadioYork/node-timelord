@@ -345,21 +345,25 @@ window.Timelord = {
 
 		Timelord._$('#studio').addClass('studio' + studio);
 
+		var studioText;
+
 		switch (studio) {
-		case 1:
-		case 2:
-			Timelord._$('#studio').html('Studio ' + studio + ' is On Air');
-			break;
-		case 3:
-			Timelord._$('#studio').html('Jukebox is On Air');
-			break;
-		case 4:
-			Timelord._$('#studio').html('Outside Broadcast');
-			break;
-		default:
-			Timelord._$('#studio').html('Unknown Output');
-			break;
+			case 1:
+			case 2:
+				studioText = 'Studio ' + studio + ' is On Air';
+				break;
+			case 3:
+				studioText = 'Jukebox is On Air';
+				break;
+			case 4:
+				studioText = 'Outside Broadcast';
+				break;
+			default:
+				studioText = 'Unknown Output';
+				break;
 		}
+
+		Timelord._$('#studio').text(studioText);
 
 	},
 
