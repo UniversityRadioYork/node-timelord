@@ -24,63 +24,57 @@ window.Timelord = {
 		// @TODO See if this can be removed
 		setTimeout("window.location = window.location.href", 18000000);
 
-		setInterval(Timelord.updateTime, 250);
-		setInterval(Timelord.updateNewsMessage, 250);
-
+		Timelord.loop();
 		Timelord.updateView();
 
 	},
 
-	updateTime: function () {
-
-		Timelord._$('#time').text(moment().format("HH:mm:ss"));
-		Timelord._$('#date').text(moment().format("Do MMMM YYYY"));
+	loop: function() {
+		var init = moment();
+		Timelord.updateTime(init);
+		Timelord.updateNewsMessage(init);
+		var now = moment();
+		var timeout = (now.seconds() - init.seconds() == 0) ?
+		    1000 - now.milliseconds() : 0
+		setTimeout(Timelord.loop,
+			   timeout);
 
 	},
 
-	updateNewsMessage: function () {
+	updateTime: function (t) {
 
-		var second = moment().seconds();
-		var minute = moment().minutes();
+		Timelord._$('#time').text(t.format("HH:mm:ss"));
+		Timelord._$('#date').text(t.format("Do MMMM YYYY"));
+
+	},
+
+	updateNewsMessage: function (t) {
+
+		var second = t.seconds();
+		var minute = t.minutes();
 
 		Timelord.news = (minute < 2 ||
 			(
 				minute == 59 &&
-				second >= 15 &&
-				second <= 52
+				second >= 15
 			)
 		);
 
 		if (Timelord.news) {
-
 			if (minute == 59) {
-
 				if (second < 45) {
-
 					Timelord.setCurrentShowName("News intro in " + (45 - second) + "...", 'news');
-
 				} else if (second <= 52) {
-
 					Timelord.setCurrentShowName((52 - second) + " until voice over...", 'news');
-
 				} else {
-
 					Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
-
 				}
-
-			} else if (minute == 0) {
-
+			} else if (minute === 0) {
 				Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
-
 			} else {
-
 				Timelord.setCurrentShowName('News ends in ' + (60 - second) + '...', 'news');
-
 			}
-
 		}
-
 	},
 
 	/**
@@ -289,7 +283,7 @@ window.Timelord = {
 	 */
 	setBreakingNews: function (news) {
 
-		if (news != null && news !== false) {
+		if (news !== null && news !== false) {
 			Timelord._$('#breaking-news').removeClass('hidden').html(news);
 			Timelord._$('#hide-when-breaking-news').addClass('hidden');
 		} else {
@@ -352,19 +346,19 @@ window.Timelord = {
 		Timelord._$('#studio').addClass('studio' + studio);
 
 		switch (studio) {
-			case 1:
-			case 2:
-				Timelord._$('#studio').html('Studio ' + studio + ' is On Air');
-				break;
-			case 3:
-				Timelord._$('#studio').html('Jukebox is On Air');
-				break;
-			case 4:
-				Timelord._$('#studio').html('Outside Broadcast');
-				break;
-			default:
-				Timelord._$('#studio').html('Unknown Output');
-				break;
+		case 1:
+		case 2:
+			Timelord._$('#studio').html('Studio ' + studio + ' is On Air');
+			break;
+		case 3:
+			Timelord._$('#studio').html('Jukebox is On Air');
+			break;
+		case 4:
+			Timelord._$('#studio').html('Outside Broadcast');
+			break;
+		default:
+			Timelord._$('#studio').html('Unknown Output');
+			break;
 		}
 
 	},
@@ -404,7 +398,7 @@ window.Timelord = {
 	 */
 	setNextShowsInfo: function (shows) {
 
-		if (!shows || shows[0] == null) {
+		if (!shows || shows[0] === null) {
 			Timelord._$('#next-shows').addClass('hidden');
 		} else {
 			Timelord._$('#next-shows').removeClass('hidden');
