@@ -105,7 +105,7 @@ window.Timelord = {
 		Timelord.callAPI({
 			url: Timelord._config.api_endpoints.breakingNews,
 			success: function (data) {
-				Timelord.setBreakingNews(data.payload);
+				Timelord.setBreakingNews(data.payload.content);
 			},
 			complete: function () {
 				setTimeout(Timelord.updateBreakingNews, Timelord._config.request_timeout);
