@@ -317,8 +317,6 @@ window.Timelord = {
 
 		if (time >= Timelord._config.silence_timeouts.long) {
 			Timelord.setBreakingNews("RADIO SILENCE DETECTED");
-		} else {
-			Timelord.updateBreakingNews();
 		}
 
 		if (time >= Timelord._config.silence_timeouts.short) {
