@@ -26,6 +26,6 @@ plan.local(function(local) {
 // run commands on the target's remote hosts
 plan.remote(function(remote) {
 	remote.log('Move folder to web root');
-	remote.rsync('-az --force --delete -O /tmp/' + tmpDir + '/bin/ ' + plan.runtime.options.install_dir);
+	remote.rsync('-az --force --delete -O /tmp/' + tmpDir + '/bin/ ' + plan.runtime.options.install_dir, {failsafe: true});
 	remote.rm('-rf /tmp/' + tmpDir);
 });
