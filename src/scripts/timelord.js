@@ -176,7 +176,7 @@ window.Timelord = {
 				setTimeout(Timelord.updateSong, Timelord._config.request_timeout);
 			},
 			error: function() {
-				Timelord.setSong("Error: Could not get the current song");
+				Timelord.setSong("");
 			}
 		});
 
