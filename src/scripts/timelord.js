@@ -21,6 +21,7 @@ window.Timelord = {
 		Timelord._$ = $;
 		Timelord._config = config;
 
+
 		// @TODO See if this can be removed
 		setTimeout("window.location = window.location.href", 18000000);
 
@@ -88,6 +89,9 @@ window.Timelord = {
 		// Set the current and next shows
 		Timelord.updateShowInfo();
 
+		// Set the currently playing song
+		Timelord.updateSong();
+
 		// Update the alerts
 		Timelord.updateAlerts();
 
@@ -105,7 +109,7 @@ window.Timelord = {
 		Timelord.callAPI({
 			url: Timelord._config.api_endpoints.breakingNews,
 			success: function (data) {
-				Timelord.setBreakingNews(data.payload);
+				Timelord.setBreakingNews(data.payload.content);
 			},
 			complete: function () {
 				setTimeout(Timelord.updateBreakingNews, Timelord._config.request_timeout);
@@ -147,6 +151,32 @@ window.Timelord = {
 			},
 			complete: function () {
 				setTimeout(Timelord.updateShowInfo, Timelord._config.request_timeout);
+			}
+		});
+
+	},
+
+	/**
+	 * Calls for the Icecast JSON
+	 * and sets the song currently being broadcast.
+	 */
+	updateSong: function() {
+
+		Timelord._$.ajax({
+			url: Timelord._config.icecast_json_url,
+			dataType: "json",
+			success: function (data) {
+				song = data["mounts"]["/live-high"]["title"];
+				if (song === " - URY") {
+					song = "";
+				}
+				Timelord.setSong(song);
+			},
+			complete: function () {
+				setTimeout(Timelord.updateSong, Timelord._config.request_timeout);
+			},
+			error: function() {
+				Timelord.setSong("");
 			}
 		});
 
@@ -375,6 +405,17 @@ window.Timelord = {
 
 		Timelord._$('#current-show-title .content')
 			.html('<span ' + (className ? 'class="' + className + '"' : '') + '>' + name + '</span>');
+
+	},
+
+	/**
+	 * Sets the current song name
+	 *
+	 * @param {String} song
+	 */
+	setSong: function(song) {
+
+		Timelord._$('#current-song').find('.content').text(song);
 
 	},
 
