@@ -13,6 +13,16 @@ plan.target('staging', {
 	install_dir: '/usr/local/www/node-timelord-staging'
 });
 
+plan.target('production', {
+	host: 'ury',
+	username: 'deploy',
+	agent: process.env.SSH_AUTH_SOCK,
+	privateKey: os.homedir() + '/.ssh/id_rsa_deploy'
+},
+{
+	install_dir: '/usr/local/www/node-timelord'
+});
+
 var tmpDir = 'node-timelord-' + new Date().getTime();
 
 // run commands on localhost
