@@ -578,8 +578,7 @@ window.Timelord = {
 
 		Timelord._$.ajax(options);
 
-	},
-
+	}
 
 
 };
