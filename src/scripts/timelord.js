@@ -10,6 +10,9 @@ window.Timelord = {
 
 	news: false,
 
+	endTime101: moment("20160606 1900", "YYYYMMDD hh:mm"),
+	startTime101: moment("20160602 1500", "YYYYMMDD hh:mm"),
+
 	/**
 	 *
 	 * @param {jQuery} $
@@ -34,6 +37,7 @@ window.Timelord = {
 		var init = moment();
 		Timelord.updateTime(init);
 		Timelord.updateNewsMessage(init);
+		Timelord.update101(init)
 		var now = moment();
 		var timeout = (now.seconds() - init.seconds() == 0) ?
 		    1000 - now.milliseconds() : 0
@@ -47,6 +51,40 @@ window.Timelord = {
 		Timelord._$('#time').text(t.format("HH:mm:ss"));
 		Timelord._$('#date').text(t.format("Do MMMM YYYY"));
 
+	},
+
+	update101: function (t) {
+
+		if (Timelord.endTime101) {
+
+			Timelord._$('#countdown101').text(msToString(Timelord.endTime101.diff(t)));
+		
+	
+		} else {
+			Timelord._$('#countdown101').text("");
+		}
+
+		if (Timelord.startTime101) {
+
+			Timelord._$('#countUP101').text(msToString(t.diff(Timelord.startTime101)));
+
+		} else {
+			Timelord._$('#countUP101').text("");
+		}
+
+		function msToString(ms) {
+				var hours = Math.floor(ms / 36e5).toString(),
+	        		mins = Math.floor((ms % 36e5) / 6e4).toString(),
+	        		secs = Math.floor((ms % 6e4) / 1000).toString();
+
+	        	function pad(padding, str) {
+	        		return padding.substring(0, padding.length - str.length) + str
+	        	}
+
+        		return pad("00", hours)+':'+pad("00",mins)+':'+ pad("00",secs)
+
+
+			}
 	},
 
 	updateNewsMessage: function (t) {
@@ -541,5 +579,6 @@ window.Timelord = {
 		Timelord._$.ajax(options);
 
 	}
+
 
 };
