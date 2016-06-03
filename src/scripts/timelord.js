@@ -10,8 +10,8 @@ window.Timelord = {
 
 	news: false,
 
-	endTime101: moment("20160606 1900", "YYYYMMDD hh:mm"),
-	startTime101: moment("20160602 1500", "YYYYMMDD hh:mm"),
+	endTime101: moment("2016-06-06 20:00", "YYYY-MM-DD hh:mm"),
+	startTime101: moment("2016-06-02 15:00", "YYYY-MM-DD hh:mm"),
 
 	/**
 	 *
@@ -73,8 +73,9 @@ window.Timelord = {
 		}
 
 		function msToString(ms) {
-				var hours = Math.round(ms / 36e5).toString(),
-	        		mins = Math.round((ms % 36e5) / 6e4).toString(),
+
+				var hours = Math.floor(ms / 36e5).toString(),
+	        		mins = Math.floor((ms % 36e5) / 6e4).toString(),
 	        		secs = Math.round((ms % 6e4) / 1000).toString();
 
 	        	function pad(padding, str) {
