@@ -73,9 +73,9 @@ window.Timelord = {
 		}
 
 		function msToString(ms) {
-				var hours = Math.floor(ms / 36e5).toString(),
-	        		mins = Math.floor((ms % 36e5) / 6e4).toString(),
-	        		secs = Math.floor((ms % 6e4) / 1000).toString();
+				var hours = Math.round(ms / 36e5).toString(),
+	        		mins = Math.round((ms % 36e5) / 6e4).toString(),
+	        		secs = Math.round((ms % 6e4) / 1000).toString();
 
 	        	function pad(padding, str) {
 	        		return padding.substring(0, padding.length - str.length) + str
