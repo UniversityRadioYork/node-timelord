@@ -57,7 +57,11 @@ window.Timelord = {
 
 		if (Timelord.endTime101) {
 
-			Timelord._$('#countdown101').text(msToString(Timelord.endTime101.diff(t)));
+			if (Timelord.endTime101.diff(t) < 0) {
+				Timelord._$('#countdown101').text('-' + msToString(-Timelord.endTime101.diff(t)));
+			} else {
+				Timelord._$('#countdown101').text(msToString(Timelord.endTime101.diff(t)));
+			}
 		
 	
 		} else {
