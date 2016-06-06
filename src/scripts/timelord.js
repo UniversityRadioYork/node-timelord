@@ -10,8 +10,6 @@ window.Timelord = {
 
 	news: false,
 
-	endTime101: moment("2016-06-06 20:00", "YYYY-MM-DD hh:mm"),
-	startTime101: moment("2016-06-02 15:00", "YYYY-MM-DD hh:mm"),
 
 	/**
 	 *
