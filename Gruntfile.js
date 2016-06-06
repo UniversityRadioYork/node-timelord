@@ -36,14 +36,11 @@ module.exports = function (grunt) {
 					{
 						expand: true,
 						cwd: 'src/scripts/',
-						src: '**/*.js',
+						src: ['**/*.js', '**/*.min.js'],
 						dest: 'bin/scripts/',
 						ext: '.min.js'
 					}
-				],
-				options: {
-					sourceMap: true
-				}
+				]
 			}
 		},
 		connect: {
@@ -64,9 +61,9 @@ module.exports = function (grunt) {
 					livereload: true
 				}
 			},
-			scripts: {
-				files: ['src/**/*.js'],
-				tasks: ['uglify'],
+			coffee: {
+				files: ['src/**/*.coffee'],
+				tasks: ['coffee', 'uglify'],
 				options: {
 					livereload: true
 				}
@@ -107,6 +104,19 @@ module.exports = function (grunt) {
 			main: {
 				local: {}
 			}
+		},
+		coffee: {
+			main: {
+				expand: true,
+				cwd: 'src/scripts/',
+				src: '**.coffee',
+				dest: 'bin/scripts/',
+				ext: '.js',
+				options: {
+					sourceMap: true,
+					sourceMapDir: 'bin/scripts/' // source map files will be created here
+				}
+			}
 		}
 	});
 
@@ -118,6 +128,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-auto-install');
+	grunt.loadNpmTasks('grunt-contrib-coffee');
 
 	// Default task(s).
 	grunt.registerTask('default', ['build', 'connect', 'watch']);
@@ -125,6 +136,6 @@ module.exports = function (grunt) {
 	// Just for compiling things
 	grunt.registerTask('build', ['clean', 'build:noclean']);
 
-	grunt.registerTask('build:noclean', ['auto_install', 'copy', 'wiredep', 'sass', 'uglify']);
+	grunt.registerTask('build:noclean', ['auto_install', 'copy', 'wiredep', 'sass', 'coffee', 'uglify']);
 
 };
