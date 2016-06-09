@@ -103,7 +103,10 @@ window.Timelord = class Timelord
 		this.callAPI
 			url: this._config.api_endpoints.breakingNews,
 			success: (data) ->
-				this.setBreakingNews data.payload.content
+				if data.payload? and data.payload.content?
+					this.setBreakingNews data.payload.content
+				else
+					console.error "Invalid JSON returned"
 			complete: () ->
 				setTimeout this.updateBreakingNews, this._config.request_timeout
 
@@ -114,8 +117,11 @@ window.Timelord = class Timelord
 		this.callAPI
 			url: this._config.api_endpoints.statusAtTime
 			success: (data) ->
-				this.setStudio data.payload.studio
-				this.setStudioPowerLevel data.payload
+				if data.payload? and data.payload.studio?
+					this.setStudio data.payload.studio
+					this.setStudioPowerLevel data.payload
+				else
+					console.error "Invalid JSON returned"
 			complete () ->
 				setTimeout this.updateStudioInfo, this._config.request_timeout
 
@@ -127,7 +133,10 @@ window.Timelord = class Timelord
 			url: this._config.api_endpoints.currentAndNext,
 			data: this._config.next_show_filtering,
 			success: (data) ->
-				this.setShows data.payload
+				if data.payload?
+					this.setShows data.payload
+				else
+					console.error "Invalid JSON returned"
 			complete: () ->
 				setTimeout this.updateShowInfo, this._config.request_timeout
 
@@ -135,7 +144,7 @@ window.Timelord = class Timelord
 	Calls for the Icecast JSON and sets the song currently being broadcast.
 	###
 	updateSong: () ->
-		this._$.ajax
+		this._$.get
 			url: this._config.icecast_json_url
 			dataType: "json"
 			success: (data) ->
@@ -164,7 +173,10 @@ window.Timelord = class Timelord
 		this.callAPI
 			url: this._config.api_endpoints.remoteStreams
 			success: (data) ->
-				this.setOBAlerts data.payload
+				if data.payload?
+					this.setOBAlerts data.payload
+				else
+					console.error "Invalid JSON returned"
 			complete: () ->
 				setTimeout this.updateOBAlerts, this._config.request_timeout
 
@@ -175,7 +187,10 @@ window.Timelord = class Timelord
 		this.callAPI
 			url: this._config.api_endpoints.isObitHappening
 			success: (data) ->
-				this.setObitAlert data.payload
+				if data.payload?
+					this.setObitAlert data.payload
+				else
+					console.error "Invalid JSON returned"
 			complete: () ->
 				setTimeout this.updateObitAlert, this._config.request_timeout
 
@@ -183,10 +198,13 @@ window.Timelord = class Timelord
 	Calls the API isSilence endpoint and sets the Silence alert
 	###
 	updateSilenceAlert: () ->
-		Timelord.callAPI
+		this.callAPI
 			url: this._config.api_endpoints.isSilence
 			success: (data) ->
-				this.setSilenceAlert data.payload
+				if data.payload?
+					this.setSilenceAlert data.payload
+				else
+					console.error "Invalid JSON returned"
 			complete: () ->
 				setTimeout this.updateSilenceAlert, this._config.request_timeout
 
@@ -199,13 +217,15 @@ window.Timelord = class Timelord
 		for i in this.routeobinfo
 			if data[i]?
 				this.setAlert "ob#{i}", "good"
-				if this.routeobinfo[i] isnt true and this.routeobinfo[i] isnt false
-					clearTimeout this.routeobinfo[i]
-				this.routeobinfo[i] = true
-			else if this.routeobinfo[i] isnt false
+				if this.routeobinfo["#{i}"] isnt true and this.routeobinfo["#{i}"] isnt false
+					clearTimeout this.routeobinfo["#{i}"]
+				this.routeobinfo["#{i}"] = true
+			else if this.routeobinfo["#{i}"] isnt false
 				this.setAlert "ob#{i}", "bad"
-				if this.routeobinfo[i] is true
-					this.routeobinfo[i] = setTimeout "Timelord.routeobinfo['#{i}'] = false;", 30000
+				if this.routeobinfo["#{i}"] is true
+					this.routeobinfo["#{i}"] = setTimeout (() ->
+						this.routeobinfo["#{i}"] = false).bind(this)
+					, 30000
 			else
 				this.resetAlert "ob#{i}"
 
@@ -264,7 +284,7 @@ window.Timelord = class Timelord
 		else
 			this.setBreakingNews false
 
-		if time >= Timelord._config.silence_timeouts.short
+		if time >= this._config.silence_timeouts.short
 			this.setAlert "dead", "bad"
 		else
 			this.resetAlert "dead"
@@ -292,7 +312,8 @@ window.Timelord = class Timelord
 			else
 				"Unknown Output"
 
-		Timelord._$("#studio").text studioText
+		this._$ "#studio"
+		.text studioText
 
 	###
 	Sets the current show name with an optional class
@@ -391,13 +412,13 @@ window.Timelord = class Timelord
 		unless options.hasOwnProperty "url"
 			console.error "URL is required for this method"
 
-		options.url = Timelord._config.api_url + options.url;
+		options.url = this._config.api_url + options.url;
 
 		unless options.hasOwnProperty "data"
 			options.data = {}
 
 		unless options.data.hasOwnProperty "api_key"
-			options.data.api_key = Timelord._config.api_key
+			options.data.api_key = this._config.api_key
 
 		unless options.hasOwnProperty "error"
 			options.error = () -> # Refresh the page
@@ -408,4 +429,4 @@ window.Timelord = class Timelord
 		unless options.hasOwnProperty "global"
 			options.global = false;
 
-		this._$.ajax options
+		this._$.get options
