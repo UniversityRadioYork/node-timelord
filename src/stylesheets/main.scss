@@ -7,6 +7,10 @@ $footer_height: 70px;
 $footer-mobile-height: 35px;
 $footer-mobile-breakpoint: 500px;
 
+* {
+	cursor: none;
+}
+
 html {
   position: relative;
   min-height: 100%;
