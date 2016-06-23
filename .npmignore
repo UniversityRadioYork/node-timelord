@@ -103,3 +103,4 @@ bower_components
 # The grunt task generates these when serving
 
 /bin
+/config.json
