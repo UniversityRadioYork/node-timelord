@@ -230,14 +230,17 @@ footer.sticky {
   }
 }
 
+$counter_width: 4;
+$clock_width: 12 - $counter_width;
+
 #main.show-counters {
   #clock {
-	@extend .col-sm-push-4;
-	@extend .col-sm-8;
+	@extend .col-sm-push-#{$counter_width};
+	@extend .col-sm-#{$clock_width};
   }
   #counters-outer {
-	@extend .col-sm-pull-8;
-	@extend .col-sm-4;
+	@extend .col-sm-pull-#{$clock_width};
+	@extend .col-sm-#{$counter_width};
   }
 }
 
