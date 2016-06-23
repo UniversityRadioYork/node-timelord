@@ -25,27 +25,11 @@
   "short_name": "URY",
   "long_name": "University Radio York",
   "refresh_on_error": false,
-  "max_counters": 4,
   "counters": [
 	{
-	  "label" : "Time Passed",
-	  "type": "up",
+	  "label" : "",
+	  "up/!down": true,
 	  "datetime": "2016/06/19 16:45"
-	},
-	{
-	  "label" : "Time To Go",
-	  "type": "down",
-	  "datetime": "2016/06/25 16:45"
-	},
-	{
-	  "label" : "A Third One",
-	  "type": "down",
-	  "datetime": "2016/06/22 11:04"
-	},
-	{
-	  "label" : "A Fourth One",
-	  "type": "up",
-	  "datetime": "2016/06/22 11:18"
 	}
   ]
 }

@@ -1,3 +1,5 @@
+@import "../../bin/bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
 /* Set up some variables */
 $font_main: "Source Sans Pro", "sans-serif";
 $font_bracket: "Times New Roman", "serif";
@@ -54,23 +56,9 @@ footer.sticky {
 #date {
 
   font-weight: bold;
-  font-size: 2em;
+  font-size: 3em;
 
 }
-
-.counter {
-	font-size: 8em;
-	color: #7cd1ff;
-}
-
-#countdown101 {
-	color: #7cd1ff;
-}
-
-#countUP101 {
-	color: #7cd1ff;
-}
-
 
 #studio {
 
@@ -180,25 +168,13 @@ footer.sticky {
 
   & > * {
 
-	padding: 0;
-
 	height: $footer_height;
-
-	padding-top: 15px;
+	padding: 15px 0 0;
 
 	@media (max-width: $footer-mobile-breakpoint) {
 	  height: $footer-mobile-height;
-
 	  padding-top: 8px;
 	}
-
-	//display: -webkit-box;
-	//display: -ms-flexbox;
-	//display: -webkit-flex;
-	//display: flex;
-
-	//justify-content: center;
-	//align-items: center;
 
 	text-align: center;
 
@@ -209,9 +185,7 @@ footer.sticky {
 	// At small sizes just make the font size
 	// responsive to the screen width
 	@media (max-width: 768px) {
-
 	  font-size: 3.5vw;
-
 	}
 
 	&.worse {
@@ -246,4 +220,29 @@ footer.sticky {
 
   }
 
+}
+
+#counters-outer {
+  color: #00b3ee;
+  p, h3 {
+	font-size: 3em;
+	font-variant: small-caps;
+  }
+}
+
+#main.show-counters {
+  #clock {
+	@extend .col-sm-push-4;
+	@extend .col-sm-8;
+  }
+  #counters-outer {
+	@extend .col-sm-pull-8;
+	@extend .col-sm-4;
+  }
+}
+
+#main:not(.show-counters) {
+  #counters-outer {
+	@extend .hidden;
+  }
 }

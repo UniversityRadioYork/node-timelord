@@ -8,15 +8,6 @@ module.exports = function (grunt) {
 				src: [
 					'bin/**/*.html',   // .html support...
 				],
-				overrides: {
-					"bootstrap": {
-						"main": [
-							"less/bootstrap.less",
-							"dist/css/bootstrap.css",
-							"dist/js/bootstrap.js"
-						]
-					}
-				}
 			}
 		},
 		sass: {
@@ -73,7 +64,7 @@ module.exports = function (grunt) {
 			},
 			pages: {
 				files: ['src/**/*.html'],
-				tasks: ['wiredep'],
+				tasks: ['copy', 'wiredep'],
 				options: {
 					livereload: true
 				}
