@@ -25,7 +25,6 @@
   "short_name": "URY",
   "long_name": "University Radio York",
   "refresh_on_error": false,
-  "max_counters": 4,
   "counters": [
 	{
 	  "label" : "Time Passed",

@@ -27,8 +27,8 @@
   "refresh_on_error": false,
   "counters": [
 	{
-	  "label" : "",
-	  "up/!down": true,
+	  "label" : "Time Passed",
+	  "type": "up",
 	  "datetime": "2016/06/19 16:45"
 	}
   ]

@@ -2,7 +2,7 @@ $(function () {
 
 	$.getJSON('config.json', function (config) {
 
-		Timelord.init($, config);
+		Timelord.init($, moment, config);
 
 	});
 

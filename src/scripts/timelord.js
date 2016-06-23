@@ -1,25 +1,63 @@
+'use strict';
+
+const max_counters = 4;
+
 window.Timelord = {
 
+	/**
+	 * An instance of moment.js to use within Timelord
+	 *
+	 * @type moment
+	 */
+	_moment: null,
+
+	/**
+	 * An instance of jQuery to use within Timelord.
+	 *
+	 * @type jQuery
+	 */
 	_$: null,
+
+	/**
+	 * Configuration options.
+	 *
+	 * @type {Object}
+	 */
 	_config: null,
 
+	/**
+	 * Information about OB's.
+	 *
+	 * @type {Object}
+	 */
 	routeobinfo: {
 		s1: false,
 		s2: false
 	},
 
+	/**
+	 * Whether or not the news is on.
+	 *
+	 * @type {boolean}
+	 */
 	news: false,
 
+	/**
+	 * Counters to show at the side of the screen.
+	 *
+	 * @type {Array.<Object>}
+	 */
 	counters: [],
 
 	/**
 	 * @param {jQuery} $
+	 * @param {moment} moment
 	 * @param {Object} config
-	 * @constructor
 	 */
-	init: function ($, config) {
+	init: function ($, moment, config) {
 
 		Timelord._$ = $;
+		Timelord._moment = moment;
 		Timelord._config = config;
 
 		// @TODO See if this can be removed
@@ -33,14 +71,14 @@ window.Timelord = {
 
 	initCounters: function () {
 		if (Timelord._config.counters) {
-			for (var i = 0; i < Timelord._config.counters.length && i < Timelord._config.max_counters; i++) {
+			for (var i = 0; i < Timelord._config.counters.length && i < max_counters; i++) {
 				// We need all bits of information, otherwise we'll skip it
 				if (
 					Timelord._config.counters[i].datetime &&
 					Timelord._config.counters[i].type &&
 					Timelord._config.counters[i].label
 				) {
-					Timelord._config.counters[i].datetime = moment(Timelord._config.counters[i].datetime);
+					Timelord._config.counters[i].datetime = Timelord._moment(Timelord._config.counters[i].datetime);
 					// We only care if we can parse the datetime
 					if (Timelord._config.counters[i].datetime) {
 						Timelord.counters.push(Timelord._config.counters[i]);
@@ -62,11 +100,11 @@ window.Timelord = {
 	},
 
 	loop: function () {
-		var init = moment();
+		var init = Timelord._moment();
 		Timelord.updateTime(init);
 		Timelord.updateNewsMessage(init);
 		Timelord.updateCounters(init);
-		var now = moment();
+		var now = Timelord._moment();
 		var timeout = (now.seconds() - init.seconds() == 0) ?
 		1000 - now.milliseconds() : 0;
 		setTimeout(Timelord.loop, timeout);
@@ -89,10 +127,10 @@ window.Timelord = {
 			}
 			var ms = to.diff(from);
 			if (ms > 0) {
-				var diff = moment.duration(ms);
+				var diff = Timelord._moment.duration(ms);
 				var hours = Math.floor(diff.asHours());
 				Timelord._$("#counters-inner #counter-" + i + " .count")
-					.text(((hours < 10) ? ("0") : ("")) + hours + moment.utc(ms).format(":mm:ss"));
+					.text(((hours < 10) ? ("0") : ("")) + hours + Timelord._moment.utc(ms).format(":mm:ss"));
 			} else {
 				Timelord._$("#counters-inner #counter-" + i + " .count").text("00:00:00");
 			}
@@ -216,7 +254,7 @@ window.Timelord = {
 			url: Timelord._config.icecast_json_url,
 			dataType: "json",
 			success: function (data) {
-				song = data["mounts"]["/live-high"]["title"];
+				var song = data["mounts"]["/live-high"]["title"];
 				if (song === " - URY") {
 					song = "";
 				}
@@ -503,7 +541,7 @@ window.Timelord = {
 				var show = Timelord._$('#next-shows #next' + i);
 
 				show.find('.name').text(shows[i].title);
-				show.find('.time').text(moment(shows[i].start_time * 1000).format("HH:mm"));
+				show.find('.time').text(Timelord._moment(shows[i].start_time * 1000).format("HH:mm"));
 
 			}
 
