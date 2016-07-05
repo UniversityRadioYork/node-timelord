@@ -1,6 +1,6 @@
 'use strict';
 
-const max_counters = 4;
+var max_counters = 4;
 
 window.Timelord = {
 
