@@ -21,17 +21,17 @@
   "homepage": "https://github.com/UniversityRadioYork/node-timelord#readme",
   "dependencies": {
 	"grunt": "^1.0.1",
-	"grunt-auto-install": "^0.3.0",
+	"grunt-auto-install": "^0.3.1",
 	"grunt-contrib-clean": "^1.0.0",
 	"grunt-contrib-connect": "^1.0.2",
 	"grunt-contrib-copy": "^1.0.0",
 	"grunt-contrib-uglify": "^1.0.1",
 	"grunt-contrib-watch": "^1.0.0",
-	"grunt-sass": "^1.0.0",
+	"grunt-sass": "^1.2.0",
 	"grunt-wiredep": "^3.0.1",
-	"serve-static": "^1.10.0"
+	"serve-static": "^1.11.1"
   },
   "devDependencies": {
-	"flightplan": "^0.6.13"
+	"flightplan": "^0.6.14"
   }
 }
