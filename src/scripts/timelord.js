@@ -206,9 +206,15 @@ window.Timelord = {
 			url: Timelord._config.icecast_json_url,
 			dataType: "json",
 			success: function (data) {
-				song = data["mounts"]["/live-high"]["title"];
-				if (song === " - URY") {
-					song = "";
+				sources = data["icestats"]["source"];
+				song = "";
+				// Look for the live-high stream. Set song to nothing if there's any error.
+				for (k = 0; k < sources.length; ++k) {
+					if (sources[k]["listenurl"].indexOf("live-high") == -1) {
+						continue;
+					}
+					song = sources[k]["title"];
+					break;
 				}
 				Timelord.setSong(song);
 			},
