@@ -1,92 +1,140 @@
+'use strict';
+
+var max_counters = 4;
+
 window.Timelord = {
 
+	/**
+	 * An instance of moment.js to use within Timelord
+	 *
+	 * @type moment
+	 */
+	_moment: null,
+
+	/**
+	 * An instance of jQuery to use within Timelord.
+	 *
+	 * @type jQuery
+	 */
 	_$: null,
+
+	/**
+	 * Configuration options.
+	 *
+	 * @type {Object}
+	 */
 	_config: null,
 
+	/**
+	 * Information about OB's.
+	 *
+	 * @type {Object}
+	 */
 	routeobinfo: {
 		s1: false,
 		s2: false
 	},
 
+	/**
+	 * Whether or not the news is on.
+	 *
+	 * @type {boolean}
+	 */
 	news: false,
 
+	/**
+	 * Counters to show at the side of the screen.
+	 *
+	 * @type {Array.<Object>}
+	 */
+	counters: [],
 
 	/**
-	 *
 	 * @param {jQuery} $
+	 * @param {moment} moment
 	 * @param {Object} config
-	 * @constructor
 	 */
-	init: function ($, config) {
+	init: function ($, moment, config) {
 
 		Timelord._$ = $;
+		Timelord._moment = moment;
 		Timelord._config = config;
-
 
 		// @TODO See if this can be removed
 		setTimeout("window.location = window.location.href", 18000000);
 
+		Timelord.initCounters();
 		Timelord.loop();
 		Timelord.updateView();
 
 	},
 
-	loop: function() {
-		var init = moment();
+	initCounters: function () {
+		if (Timelord._config.counters) {
+			for (var i = 0; i < Timelord._config.counters.length && i < max_counters; i++) {
+				// We need all bits of information, otherwise we'll skip it
+				if (
+					Timelord._config.counters[i].datetime &&
+					Timelord._config.counters[i].type &&
+					Timelord._config.counters[i].label
+				) {
+					Timelord._config.counters[i].datetime = Timelord._moment(Timelord._config.counters[i].datetime);
+					// We only care if we can parse the datetime
+					if (Timelord._config.counters[i].datetime) {
+						Timelord.counters.push(Timelord._config.counters[i]);
+					}
+				}
+			}
+		}
+		if (Timelord.counters.length > 0) {
+			for (var i in Timelord.counters) {
+				Timelord._$("#counters-inner").append(
+					"<div class=\"counter col-xs-6 col-sm-12\" id=\"counter-" + i + "\">" +
+					"<h3>" + Timelord.counters[i].label + "</h3>" +
+					"<p class=\"count\">" + Timelord.counters[i].datetime.fromNow() + "</p>" +
+					"</div>"
+				);
+			}
+			Timelord._$('#main').addClass('show-counters');
+		}
+	},
+
+	loop: function () {
+		var init = Timelord._moment();
 		Timelord.updateTime(init);
 		Timelord.updateNewsMessage(init);
-		Timelord.update101(init)
-		var now = moment();
+		Timelord.updateCounters(init);
+		var now = Timelord._moment();
 		var timeout = (now.seconds() - init.seconds() == 0) ?
-		    1000 - now.milliseconds() : 0
-		setTimeout(Timelord.loop,
-			   timeout);
-
+		1000 - now.milliseconds() : 0;
+		setTimeout(Timelord.loop, timeout);
 	},
 
 	updateTime: function (t) {
-
 		Timelord._$('#time').text(t.format("HH:mm:ss"));
-		Timelord._$('#date').text(t.format("Do MMMM YYYY"));
-
+		Timelord._$('#date').text(t.format("dddd Do MMMM YYYY"));
 	},
 
-	update101: function (t) {
-
-		if (Timelord.endTime101) {
-
-			if (Timelord.endTime101.diff(t) < 0) {
-				Timelord._$('#countdown101').text('-' + msToString(-Timelord.endTime101.diff(t)));
+	updateCounters: function (t) {
+		for (var i in Timelord.counters) {
+			var to, from;
+			if (Timelord.counters[i].type == "up") {
+				from = Timelord.counters[i].datetime;
+				to = t;
 			} else {
-				Timelord._$('#countdown101').text(msToString(Timelord.endTime101.diff(t)));
+				from = t;
+				to = Timelord.counters[i].datetime;
 			}
-		
-	
-		} else {
-			Timelord._$('#countdown101').text("");
-		}
-
-		if (Timelord.startTime101) {
-
-			Timelord._$('#countUP101').text(msToString(t.diff(Timelord.startTime101)));
-
-		} else {
-			Timelord._$('#countUP101').text("");
-		}
-
-		function msToString(ms) {
-				var hours = Math.floor(ms / 36e5).toString(),
-	        		mins = Math.floor((ms % 36e5) / 6e4).toString(),
-	        		secs = Math.round((ms % 6e4) / 1000).toString();
-
-	        	function pad(padding, str) {
-	        		return padding.substring(0, padding.length - str.length) + str
-	        	}
-
-        		return pad("00", hours)+':'+pad("00",mins)+':'+ pad("00",secs)
-
-
+			var ms = to.diff(from);
+			if (ms > 0) {
+				var diff = Timelord._moment.duration(ms);
+				var hours = Math.floor(diff.asHours());
+				Timelord._$("#counters-inner #counter-" + i + " .count")
+					.text(((hours < 10) ? ("0") : ("")) + hours + Timelord._moment.utc(ms).format(":mm:ss"));
+			} else {
+				Timelord._$("#counters-inner #counter-" + i + " .count").text("00:00:00");
 			}
+		}
 	},
 
 	updateNewsMessage: function (t) {
@@ -200,13 +248,13 @@ window.Timelord = {
 	 * Calls for the Icecast JSON
 	 * and sets the song currently being broadcast.
 	 */
-	updateSong: function() {
+	updateSong: function () {
 
 		Timelord._$.ajax({
 			url: Timelord._config.icecast_json_url,
 			dataType: "json",
 			success: function (data) {
-				song = data["mounts"]["/live-high"]["title"];
+				var song = data["mounts"]["/live-high"]["title"];
 				if (song === " - URY") {
 					song = "";
 				}
@@ -215,7 +263,7 @@ window.Timelord = {
 			complete: function () {
 				setTimeout(Timelord.updateSong, Timelord._config.request_timeout);
 			},
-			error: function() {
+			error: function () {
 				Timelord.setSong("");
 			}
 		});
@@ -453,7 +501,7 @@ window.Timelord = {
 	 *
 	 * @param {String} song
 	 */
-	setSong: function(song) {
+	setSong: function (song) {
 
 		Timelord._$('#current-song').find('.content').text(song);
 
@@ -491,7 +539,7 @@ window.Timelord = {
 				var show = Timelord._$('#next-shows #next' + i);
 
 				show.find('.name').text(shows[i].title);
-				show.find('.time').text(moment(shows[i].start_time * 1000).format("HH:mm"));
+				show.find('.time').text(Timelord._moment(shows[i].start_time * 1000).format("HH:mm"));
 
 			}
 
@@ -566,7 +614,7 @@ window.Timelord = {
 		if (!options.hasOwnProperty('error')) {
 			options.error = function () {// Refresh the page
 				console.error("Failed to call API");
-				if(Timelord._config.refresh_on_error){
+				if (Timelord._config.refresh_on_error) {
 					window.location = window.location.href;
 				}
 			};

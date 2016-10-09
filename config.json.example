@@ -24,5 +24,12 @@
   "request_timeout": 3000,
   "short_name": "URY",
   "long_name": "University Radio York",
-  "refresh_on_error": false
+  "refresh_on_error": false,
+  "counters": [
+	{
+	  "label" : "Time Passed",
+	  "type": "up",
+	  "datetime": "2016/06/19 16:45"
+	}
+  ]
 }
