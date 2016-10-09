@@ -214,6 +214,9 @@ window.Timelord = {
 						continue;
 					}
 					song = sources[k]["title"];
+					if (song === "  - URY") {
+						song = "";
+					}
 					break;
 				}
 				Timelord.setSong(song);
