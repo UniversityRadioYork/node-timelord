@@ -6,6 +6,8 @@ NodeJS implementation of Timelord
 
 ## How to run
 
+See the [wiki](https://ury.org.uk/ceedox/computing:services:studioclock) for info about the deployment on URY.
+
 ### Development
 
 ```sh
@@ -18,6 +20,11 @@ $ grunt
 ```
 
 ### Production
+
+Deployment on URY is handled by **Jenkins**. Use the `node-timelord` and `node-timelord-staging` jobs to deploy the master branch.
+See the [wiki](https://ury.org.uk/ceedox/computing:services:studioclock#building_and_deployment_production) for more about deployment on URY.
+
+#### Manual instructions
 
 You will need some kind of way of serving static files from the `/bin` folder. I.E. Apache, Nginx etc.
 
@@ -45,6 +52,12 @@ If you want to do a development build without clearing out `/bin` then run `grun
 
 - [grunt-cli](https://github.com/gruntjs/grunt-cli): Grunt's command line interface. [http://gruntjs.com/](http://gruntjs.com/)
 - [bower](http://bower.io/): A package manager for the web
+
+## Dev Dependencies
+
+Use `npm install --dev` to get the following for deployment:
+
+- [flightplan](https://github.com/pstadler/flightplan): A library for streamlining application deployment or systems administration tasks
 
 ## License
 
