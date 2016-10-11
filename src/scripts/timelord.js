@@ -213,7 +213,9 @@ window.Timelord = {
 					if (sources[k]["listenurl"].indexOf("live-high") == -1) {
 						continue;
 					}
-					song = sources[k]["title"];
+					if sources[k]["title"] != " - URY" {
+						song = sources[k]["title"];
+					}
 					break;
 				}
 				Timelord.setSong(song);
