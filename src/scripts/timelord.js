@@ -497,8 +497,10 @@ window.Timelord = {
 			var numNextShows = 2;
 			if (shows[1] === null) {
 				numNextShows = 1;
+				Timelord._$('#next-shows #next1').addClass('hidden');
 			}
 			Timelord._$('#next-shows').removeClass('hidden');
+			Timelord._$('#next-shows #next1').removeClass('hidden');
 
 			for (var i = 0; i < numNextShows; i++) {
 
