@@ -149,7 +149,7 @@ window.Timelord = {
 		Timelord.callAPI({
 			url: Timelord._config.api_endpoints.breakingNews,
 			success: function (data) {
-				if (data.payload.content) {
+				if (data.payload !== null) {
 					Timelord.setBreakingNews(data.payload.content);
 				} else {
 					Timelord.setBreakingNews(false);
@@ -399,8 +399,6 @@ window.Timelord = {
 
 		if (time >= Timelord._config.silence_timeouts.long) {
 			Timelord.setBreakingNews("RADIO SILENCE DETECTED");
-		} else {
-			Timelord.setBreakingNews(false);
 		}
 
 		if (time >= Timelord._config.silence_timeouts.short) {
