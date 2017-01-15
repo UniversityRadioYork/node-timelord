@@ -499,17 +499,16 @@ window.Timelord = {
 			//If there is only one show (last show before end of term)
 			if (shows[1] === null) {
 				numNextShows = 1;
-				Timelord._$('#next-shows #next1').addClass('hidden');
+				Timelord._$('#next1').addClass('hidden');
 			//Else, if there are two shows (normal term-time)
 			} else {
-				Timelord._$('#next-shows #next1').removeClass('hidden');
+				Timelord._$('#next1').removeClass('hidden');
 			}
 			Timelord._$('#next-shows').removeClass('hidden');
 
-
 			for (var i = 0; i < numNextShows; i++) {
 
-				var show = Timelord._$('#next-shows #next' + i);
+				var show = Timelord._$('#next' + i);
 
 				show.find('.name').text(shows[i].title);
 				show.find('.time').text(moment(shows[i].start_time * 1000).format("HH:mm"));
