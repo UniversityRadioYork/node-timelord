@@ -22,9 +22,7 @@ window.Timelord = {
 		Timelord._$ = $;
 		Timelord._config = config;
 
-
-		// @TODO See if this can be removed
-		setTimeout("window.location = window.location.href", 18000000);
+		setTimeout(Timelord.checkTimelordAvailability, 18000000);
 
 		Timelord.loop();
 		Timelord.updateView();
@@ -60,8 +58,8 @@ window.Timelord = {
 			} else {
 				Timelord._$('#countdown101').text(msToString(Timelord.endTime101.diff(t)));
 			}
-		
-	
+
+
 		} else {
 			Timelord._$('#countdown101').text("");
 		}
@@ -153,7 +151,7 @@ window.Timelord = {
 					Timelord.setBreakingNews(data.payload.content);
 				} else {
 					Timelord.setBreakingNews(false);
-				}				
+				}
 			},
 			complete: function () {
 				setTimeout(Timelord.updateBreakingNews, Timelord._config.request_timeout);
@@ -590,6 +588,18 @@ window.Timelord = {
 
 		Timelord._$.ajax(options);
 
+	},
+
+	/* Checks if Timelord is available to reload from server, if so, reload. If not, show error. */
+	checkTimelordAvailability: function () {
+		var timelordAvailable = false;
+		$.ajax({url: window.location.href, success: function(result){
+        window.location = window.location.href;
+    }, error: function(result){
+				setTimeout(Timelord.checkTimelordAvailability,300000);
+				$('#availability-error').show();
+		}
+		});
 	}
 
 
