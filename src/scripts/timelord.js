@@ -594,13 +594,12 @@ window.Timelord = {
 	checkTimelordAvailability: function () {
 		var timelordAvailable = false;
 		$.ajax({url: window.location.href, success: function(result){
-        window.location = window.location.href;
-    }, error: function(result){
+      	window.location = window.location.href;
+			}, error: function(result){
 				setTimeout(Timelord.checkTimelordAvailability,300000);
 				$('#availability-error').show();
-		}
+			}
 		});
 	}
-
 
 };
