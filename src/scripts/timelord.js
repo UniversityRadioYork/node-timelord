@@ -153,7 +153,7 @@ window.Timelord = {
 					Timelord.setBreakingNews(data.payload.content);
 				} else {
 					Timelord.setBreakingNews(false);
-				}				
+				}
 			},
 			complete: function () {
 				setTimeout(Timelord.updateBreakingNews, Timelord._config.request_timeout);
@@ -316,7 +316,9 @@ window.Timelord = {
 		for (var i in Timelord.routeobinfo) {
 
 			if (data[i]) {
-				Timelord.setAlert('ob' + i, 'good');
+				if (!document.getElementById("ob" + i).classList.contains('good')) {
+					Timelord.setAlert('ob' + i, 'standby');
+				}
 				if (Timelord.routeobinfo[i] !== true &&
 					Timelord.routeobinfo[i] !== false) {
 					clearTimeout(Timelord.routeobinfo[i]);
@@ -354,6 +356,16 @@ window.Timelord = {
 				Timelord.resetAlert('s' + i);
 			}
 
+		}
+
+		//also set the OB light to success since we get data.studio here and not above.
+
+		if (data['s4power']) {
+			if (data.studio == 4) {
+				Timelord.setAlert('obs1', 'good');
+			} else {
+				Timelord.setAlert('obs1', 'standby');
+			}
 		}
 
 	},
