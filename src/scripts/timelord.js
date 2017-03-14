@@ -7,8 +7,7 @@ window.Timelord = {
 		s1: false, //studio1
 		s2: false, //studio2
 		s3: true, //jukebox
-		s4: false, //OB1
-		s5: false //OB2
+		s4: false //OB
 	},
 
 	news: false,
@@ -247,31 +246,11 @@ window.Timelord = {
 		// Check for Silence
 		Timelord.updateSilenceAlert();
 
-		// Check for remote streams
-		Timelord.updateOBAlerts();
-
 		// Check for Obit
 		Timelord.updateObitAlert();
 
 	},
 
-	/**
-	 * Calls the API remoteStreams endpoint
-	 * and sets the ob alerts
-	 */
-	updateOBAlerts: function () {
-
-		Timelord.callAPI({
-			url: Timelord._config.api_endpoints.remoteStreams,
-			success: function (data) {
-				Timelord.setOBAlerts(data.payload);
-			},
-			complete: function () {
-				setTimeout(Timelord.updateOBAlerts, Timelord._config.request_timeout);
-			}
-		});
-
-	},
 
 	/**
 	 * Calls the API isObitHappening endpoint
@@ -310,31 +289,6 @@ window.Timelord = {
 	},
 
 	/**
-	 * Sets the OB alerts
-	 *
-	 * @param {Object} data
-	 */
-	setOBAlerts: function (data) {
-		//this function is now only used for OB2, since it's not selectable
-		var i = 5, studioID = "s" + i;
-			if (data["s" + (i-3)]) {
-				if (Timelord.studioinfo[studioID] !== true &&
-					Timelord.studioinfo[studioID] !== false) {
-					clearTimeout(Timelord.studioinfo[studioID]);
-				}
-				Timelord.setAlert(studioID, 'standby');
-				Timelord.studioinfo[studioID] = true;
-			} else if (Timelord.studioinfo[studioID] !== false) {
-				Timelord.setAlert(studioID, 'bad');
-				if (Timelord.studioinfo[studioID] === true) {
-					Timelord.studioinfo[studioID] = setTimeout("Timelord.studioinfo['" + studioID + "'] = false;", 30000);
-				}
-			} else {
-				Timelord.resetAlert(studioID);
-			}
-	},
-
-	/**
 	 * Sets the studio power levels
 	 *
 	 * @param {Object} data
@@ -342,26 +296,24 @@ window.Timelord = {
 	setStudioPowerLevel: function (data) {
 
 		for (var i = 1; i <= 4; i++) {
-			if (i != 3) { //jukebox has no s3power from API
-				if (data['s' + i + 'power']) {
-					if (data.studio == i) {
-						Timelord.setAlert('s' + i, 'good');
-					} else {
-						Timelord.setAlert('s' + i, 'standby');
-					}
-					if (Timelord.studioinfo['s' + i] !== true &&
-						Timelord.studioinfo['s' + i] !== false) {
-						clearTimeout(Timelord.studioinfo['s' + i]);
-					}
-					Timelord.studioinfo[i] = true;
-				// set red disconnection light
-				} else if (Timelord.studioinfo[i] === true) {
-					Timelord.studioinfo[i] = setTimeout("Timelord.studioinfo['" + i + "'] = false;", 30000);
-					Timelord.setAlert('s' + i, 'bad');
-				// relieve red disconnection light
-				} else if (Timelord.studioinfo[i] === false) {
-					Timelord.resetAlert('s' + i);
+			if (data['s' + i + 'power']) {
+				if (data.studio == i) {
+					Timelord.setAlert('s' + i, 'good');
+				} else {
+					Timelord.setAlert('s' + i, 'standby');
 				}
+				if (Timelord.studioinfo['s' + i] !== true &&
+					Timelord.studioinfo['s' + i] !== false) {
+					clearTimeout(Timelord.studioinfo['s' + i]);
+				}
+				Timelord.studioinfo[i] = true;
+			// set red disconnection light
+			} else if (Timelord.studioinfo[i] === true) {
+				Timelord.studioinfo[i] = setTimeout("Timelord.studioinfo['" + i + "'] = false;", 30000);
+				Timelord.setAlert('s' + i, 'bad');
+			// relieve red disconnection light
+			} else if (Timelord.studioinfo[i] === false) {
+				Timelord.resetAlert('s' + i);
 			}
 		}
 
