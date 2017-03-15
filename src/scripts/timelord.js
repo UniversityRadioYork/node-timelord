@@ -2,7 +2,11 @@ window.Timelord = {
 
 	_$: null,
 	_config: null,
-
+	/**
+		*
+		* holds if the selector thinks these are powered or not.
+		* used to detect if the light should go red on disconnect.
+	*/
 	studioinfo: {
 		s1: false, //studio1
 		s2: false, //studio2
@@ -302,17 +306,17 @@ window.Timelord = {
 				} else {
 					Timelord.setAlert('s' + i, 'standby');
 				}
-				if (Timelord.studioinfo['s' + i] !== true &&
-					Timelord.studioinfo['s' + i] !== false) {
+				if (!Timelord.studioinfo['s' + i] &&
+					Timelord.studioinfo['s' + i]) {
 					clearTimeout(Timelord.studioinfo['s' + i]);
 				}
 				Timelord.studioinfo[i] = true;
 			// set red disconnection light
-			} else if (Timelord.studioinfo[i] === true) {
+			} else if (Timelord.studioinfo[i]) {
 				Timelord.studioinfo[i] = setTimeout("Timelord.studioinfo['" + i + "'] = false;", 30000);
 				Timelord.setAlert('s' + i, 'bad');
 			// relieve red disconnection light
-			} else if (Timelord.studioinfo[i] === false) {
+			} else if (!Timelord.studioinfo[i]) {
 				Timelord.resetAlert('s' + i);
 			}
 		}
