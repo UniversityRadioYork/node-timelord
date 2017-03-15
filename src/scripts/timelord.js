@@ -2,10 +2,16 @@ window.Timelord = {
 
 	_$: null,
 	_config: null,
-
-	routeobinfo: {
-		s1: false,
-		s2: false
+	/**
+	 *
+	 * holds if the selector thinks these are powered or not.
+	 * used to detect if the light should go red on disconnect.
+	*/
+	studioinfo: {
+		s1: false, //studio1
+		s2: false, //studio2
+		s3: true, //jukebox
+		s4: false //OB
 	},
 
 	news: false,
@@ -153,7 +159,7 @@ window.Timelord = {
 					Timelord.setBreakingNews(data.payload.content);
 				} else {
 					Timelord.setBreakingNews(false);
-				}				
+				}
 			},
 			complete: function () {
 				setTimeout(Timelord.updateBreakingNews, Timelord._config.request_timeout);
@@ -244,31 +250,11 @@ window.Timelord = {
 		// Check for Silence
 		Timelord.updateSilenceAlert();
 
-		// Check for remote streams
-		Timelord.updateOBAlerts();
-
 		// Check for Obit
 		Timelord.updateObitAlert();
 
 	},
 
-	/**
-	 * Calls the API remoteStreams endpoint
-	 * and sets the ob alerts
-	 */
-	updateOBAlerts: function () {
-
-		Timelord.callAPI({
-			url: Timelord._config.api_endpoints.remoteStreams,
-			success: function (data) {
-				Timelord.setOBAlerts(data.payload);
-			},
-			complete: function () {
-				setTimeout(Timelord.updateOBAlerts, Timelord._config.request_timeout);
-			}
-		});
-
-	},
 
 	/**
 	 * Calls the API isObitHappening endpoint
@@ -307,53 +293,28 @@ window.Timelord = {
 	},
 
 	/**
-	 * Sets the OB alerts
-	 *
-	 * @param {Object} data
-	 */
-	setOBAlerts: function (data) {
-
-		for (var i in Timelord.routeobinfo) {
-
-			if (data[i]) {
-				Timelord.setAlert('ob' + i, 'good');
-				if (Timelord.routeobinfo[i] !== true &&
-					Timelord.routeobinfo[i] !== false) {
-					clearTimeout(Timelord.routeobinfo[i]);
-				}
-				Timelord.routeobinfo[i] = true;
-			} else if (Timelord.routeobinfo[i] !== false) {
-				Timelord.setAlert('ob' + i, 'bad');
-				if (Timelord.routeobinfo[i] === true) {
-					Timelord.routeobinfo[i] = setTimeout("Timelord.routeobinfo['" + i + "'] = false;", 30000);
-				}
-			} else {
-				Timelord.resetAlert('ob' + i);
-			}
-
-		}
-
-	},
-
-	/**
 	 * Sets the studio power levels
 	 *
 	 * @param {Object} data
 	 */
 	setStudioPowerLevel: function (data) {
 
-		for (var i = 1; i <= 2; i++) {
-
+		for (var i = 1; i <= 4; i++) {
 			if (data['s' + i + 'power']) {
-				if (data.studio == i) {
-					Timelord.setAlert('s' + i, 'good');
-				} else {
-					Timelord.setAlert('s' + i, 'standby');
+				Timelord.setAlert('s' + i, (data.studio == i) ?  'good' : 'standby');
+				if (!Timelord.studioinfo['s' + i] &&
+					Timelord.studioinfo['s' + i]) {
+					clearTimeout(Timelord.studioinfo['s' + i]);
 				}
-			} else {
+				Timelord.studioinfo[i] = true;
+			// set red disconnection light
+			} else if (Timelord.studioinfo[i]) {
+				Timelord.studioinfo[i] = setTimeout("Timelord.studioinfo['" + i + "'] = false;", 30000);
+				Timelord.setAlert('s' + i, 'bad');
+			// relieve red disconnection light
+			} else if (!Timelord.studioinfo[i]) {
 				Timelord.resetAlert('s' + i);
 			}
-
 		}
 
 	},
