@@ -301,7 +301,7 @@ window.Timelord = {
 
 		for (var i = 1; i <= 4; i++) {
 			if (data['s' + i + 'power']) {
-				(data.studio == i) ? Timelord.setAlert('s' + i, 'good') : Timelord.setAlert('s' + i, 'standby');
+				Timelord.setAlert('s' + i, (data.studio == i) ?  'good' : 'standby');
 				if (!Timelord.studioinfo['s' + i] &&
 					Timelord.studioinfo['s' + i]) {
 					clearTimeout(Timelord.studioinfo['s' + i]);
