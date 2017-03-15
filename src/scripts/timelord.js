@@ -2,7 +2,11 @@ window.Timelord = {
 
 	_$: null,
 	_config: null,
-
+	/**
+	 *
+	 * holds if the selector thinks these are powered or not.
+	 * used to detect if the light should go red on disconnect.
+	*/
 	studioinfo: {
 		s1: false, //studio1
 		s2: false, //studio2
