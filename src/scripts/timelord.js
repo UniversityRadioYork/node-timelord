@@ -458,25 +458,35 @@ window.Timelord = {
 			Timelord._$('#next-shows').addClass('hidden');
 		//Else, if there are next shows
 		} else {
-			var numNextShows = 2;
 			//If there is only one show (last show before end of term)
-			if (shows[1] === null) {
-				numNextShows = 1;
+			//API outputs without a inner array, so test for this.
+			if (shows.title != null) {
+
 				Timelord._$('#next1').addClass('hidden');
+
+				var show = Timelord._$('#next0');
+
+				show.find('.name').text(shows.title);
+				show.find('.time').text(moment(shows.start_time * 1000).format("HH:mm"));
+
+				Timelord._$('#next-shows').removeClass('hidden');
 			//Else, if there are two shows (normal term-time)
 			} else {
 				Timelord._$('#next1').removeClass('hidden');
+
+				for (var i = 0; i < 2; i++) {
+
+					var show = Timelord._$('#next' + i);
+
+					show.find('.name').text(shows[i].title);
+					show.find('.time').text(moment(shows[i].start_time * 1000).format("HH:mm"));
+
+				}
+				Timelord._$('#next-shows').removeClass('hidden');
 			}
-			Timelord._$('#next-shows').removeClass('hidden');
 
-			for (var i = 0; i < numNextShows; i++) {
 
-				var show = Timelord._$('#next' + i);
 
-				show.find('.name').text(shows[i].title);
-				show.find('.time').text(moment(shows[i].start_time * 1000).format("HH:mm"));
-
-			}
 
 		}
 
