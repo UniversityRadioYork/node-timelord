@@ -208,7 +208,6 @@ window.Timelord = {
 				} else {
 					Timelord.setStudio(data.payload.studio);
 				}
-				console.log(data.payload);
 				Timelord.setStudioPowerLevel(data.payload);
 			},
 			complete: function () {
