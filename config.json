@@ -7,7 +7,8 @@
 	"isObitHappening": "selector/isobithappening/",
 	"statusAtTime": "selector/statusattime/",
 	"currentAndNext": "timeslot/currentandnext/",
-	"breakingNews": "news/latestnewsitem/3"
+	"breakingNews": "news/latestnewsitem/3",
+	"isActiveTerm": "scheduler/isactiveterm/"
   },
   "next_show_filtering": {
 	"n": 2,

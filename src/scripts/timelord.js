@@ -14,6 +14,9 @@ window.Timelord = {
 		s4: false //OB
 	},
 
+	// Holds if the station is said to be off air (to override selector displayed)
+	offair: false,
+
 	news: false,
 
 
@@ -129,6 +132,9 @@ window.Timelord = {
 	 */
 	updateView: function () {
 
+		// Update the term status information
+		Timelord.updateActiveTerm();
+
 		// Update the Studio information
 		Timelord.updateStudioInfo();
 
@@ -169,6 +175,24 @@ window.Timelord = {
 	},
 
 	/**
+	 * Calls the API isActiveTerm endpoint and
+	 * sets the current on/off air status.
+	 */
+	updateActiveTerm: function () {
+
+				Timelord.callAPI({
+					url: Timelord._config.api_endpoints.isActiveTerm,
+					success: function (data) {
+						Timelord.setOffAir(!data.payload);
+					},
+					complete: function () {
+						setTimeout(Timelord.updateActiveTerm, Timelord._config.request_timeout);
+					}
+				});
+
+			},
+
+	/**
 	 * Calls the API statusAtTime endpoint and
 	 * sets the current studio information.
 	 */
@@ -177,7 +201,14 @@ window.Timelord = {
 		Timelord.callAPI({
 			url: Timelord._config.api_endpoints.statusAtTime,
 			success: function (data) {
-				Timelord.setStudio(data.payload.studio);
+				if ((Timelord.offair) && (data.payload.studio == 3)) {
+					//If we are off air and we've switched to jukebox, show as off air.
+					Timelord.setStudio(5);
+					data.payload.studio = 6;
+				} else {
+					Timelord.setStudio(data.payload.studio);
+				}
+				console.log(data.payload);
 				Timelord.setStudioPowerLevel(data.payload);
 			},
 			complete: function () {
@@ -293,6 +324,15 @@ window.Timelord = {
 	},
 
 	/**
+	 * Sets the on air status
+	 *
+	 * @param {Object} data
+	 */
+	setOffAir: function (data) {
+		Timelord.offair = data;
+	},
+
+	/**
 	 * Sets the studio power levels
 	 *
 	 * @param {Object} data
@@ -382,7 +422,8 @@ window.Timelord = {
 			.removeClass('studio1')
 			.removeClass('studio2')
 			.removeClass('studio3')
-			.removeClass('studio4');
+			.removeClass('studio4')
+			.removeClass('studio5');
 
 		Timelord._$('#studio').addClass('studio' + studio);
 
@@ -398,6 +439,9 @@ window.Timelord = {
 				break;
 			case 4:
 				studioText = 'Outside Broadcast';
+				break;
+			case 5:
+				studioText = 'Station is Off Air';
 				break;
 			default:
 				studioText = 'Unknown Output';
@@ -453,7 +497,7 @@ window.Timelord = {
 	 * @param {Array} shows
 	 */
 	setNextShowsInfo: function (shows) {
-		//If no next shows (Jukebox off-term)
+		//If no next shows (Off-air off-term)
 		if (!shows || shows[0] === null) {
 			Timelord._$('#next-shows').addClass('hidden');
 		//Else, if there are next shows

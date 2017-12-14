@@ -91,7 +91,7 @@ footer.sticky {
   }
 
   &.studio2 {
-	color: #0044BA;
+	color: rgb(36, 110, 230);
   }
 
   &.studio3 {
@@ -102,6 +102,10 @@ footer.sticky {
 	color: #bb00dc;
   }
 
+	//If we're off air
+	&.studio5 {
+	color: orange;
+	}
 }
 
 #time {
