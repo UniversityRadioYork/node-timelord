@@ -8,7 +8,7 @@
 	"statusAtTime": "selector/statusattime/",
 	"currentAndNext": "timeslot/currentandnext/",
 	"breakingNews": "news/latestnewsitem/3",
-	"isActiveTerm": "scheduler/isactiveterm/"
+	"isActiveTerm": "scheduler/isterm/"
   },
   "next_show_filtering": {
 	"n": 2,
