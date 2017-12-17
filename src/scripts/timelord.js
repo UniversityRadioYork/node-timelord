@@ -203,8 +203,10 @@ window.Timelord = {
 			success: function (data) {
 				if ((Timelord.offair) && (data.payload.studio == 3)) {
 					//If we are off air and we've switched to jukebox, show as off air.
-					Timelord.setStudio(5);
-					data.payload.studio = 6;
+					Timelord.setStudio(0);
+					//Could be anything but 3, just so that the Jukebox light is not green
+					//Effectively disables any studio light from being on air.
+					data.payload.studio = 0;
 				} else {
 					Timelord.setStudio(data.payload.studio);
 				}
@@ -418,17 +420,20 @@ window.Timelord = {
 	setStudio: function (studio) {
 
 		Timelord._$('#studio')
+			.removeClass('studio0')
 			.removeClass('studio1')
 			.removeClass('studio2')
 			.removeClass('studio3')
-			.removeClass('studio4')
-			.removeClass('studio5');
+			.removeClass('studio4');
 
 		Timelord._$('#studio').addClass('studio' + studio);
 
 		var studioText;
 
 		switch (studio) {
+			case 0:
+				studioText = 'Station is Off Air';
+				break;
 			case 1:
 			case 2:
 				studioText = 'Studio ' + studio + ' is On Air';
@@ -438,9 +443,6 @@ window.Timelord = {
 				break;
 			case 4:
 				studioText = 'Outside Broadcast';
-				break;
-			case 5:
-				studioText = 'Station is Off Air';
 				break;
 			default:
 				studioText = 'Unknown Output';
