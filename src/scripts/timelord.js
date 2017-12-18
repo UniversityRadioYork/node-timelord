@@ -14,6 +14,9 @@ window.Timelord = {
 		s4: false //OB
 	},
 
+	// Holds if the station is said to be off air (to override selector displayed)
+	offair: false,
+
 	news: false,
 
 
@@ -27,10 +30,6 @@ window.Timelord = {
 
 		Timelord._$ = $;
 		Timelord._config = config;
-
-
-		// @TODO See if this can be removed
-		setTimeout("window.location = window.location.href", 18000000);
 
 		Timelord.loop();
 		Timelord.updateView();
@@ -129,6 +128,9 @@ window.Timelord = {
 	 */
 	updateView: function () {
 
+		// Update the term status information
+		Timelord.updateActiveTerm();
+
 		// Update the Studio information
 		Timelord.updateStudioInfo();
 
@@ -169,6 +171,31 @@ window.Timelord = {
 	},
 
 	/**
+	 * Calls the API isActiveTerm endpoint and
+	 * sets the current on/off air status.
+	 */
+	updateActiveTerm: function () {
+
+				Timelord.callAPI({
+					url: Timelord._config.api_endpoints.isActiveTerm,
+					success: function (data) {
+						Timelord.setOffAir(!data.payload);
+					},
+					complete: function () {
+						//Recheck the term status 10 seconds after the date changes.
+						var reloadTime = new Date();
+						reloadTime.setHours( 24 );
+						reloadTime.setMinutes( 0 );
+						reloadTime.setSeconds( 10 );
+						reloadTime.setMilliseconds( 0 );
+						var timeTillNextPoll = (reloadTime.getTime() - new Date().getTime() );
+						setTimeout(Timelord.updateActiveTerm, timeTillNextPoll);
+					}
+				});
+
+			},
+
+	/**
 	 * Calls the API statusAtTime endpoint and
 	 * sets the current studio information.
 	 */
@@ -177,7 +204,15 @@ window.Timelord = {
 		Timelord.callAPI({
 			url: Timelord._config.api_endpoints.statusAtTime,
 			success: function (data) {
-				Timelord.setStudio(data.payload.studio);
+				if ((Timelord.offair) && (data.payload.studio == 3)) {
+					//If we are off air and we've switched to jukebox, show as off air.
+					Timelord.setStudio(0);
+					//Could be anything but 3, just so that the Jukebox light is not green
+					//Effectively disables any studio light from being on air.
+					data.payload.studio = 0;
+				} else {
+					Timelord.setStudio(data.payload.studio);
+				}
 				Timelord.setStudioPowerLevel(data.payload);
 			},
 			complete: function () {
@@ -293,6 +328,15 @@ window.Timelord = {
 	},
 
 	/**
+	 * Sets the on air status
+	 *
+	 * @param {Boolean} data
+	 */
+	setOffAir: function (data) {
+		Timelord.offair = data;
+	},
+
+	/**
 	 * Sets the studio power levels
 	 *
 	 * @param {Object} data
@@ -379,6 +423,7 @@ window.Timelord = {
 	setStudio: function (studio) {
 
 		Timelord._$('#studio')
+			.removeClass('studio0')
 			.removeClass('studio1')
 			.removeClass('studio2')
 			.removeClass('studio3')
@@ -389,6 +434,9 @@ window.Timelord = {
 		var studioText;
 
 		switch (studio) {
+			case 0:
+				studioText = 'Station is Off Air';
+				break;
 			case 1:
 			case 2:
 				studioText = 'Studio ' + studio + ' is On Air';
@@ -453,7 +501,7 @@ window.Timelord = {
 	 * @param {Array} shows
 	 */
 	setNextShowsInfo: function (shows) {
-		//If no next shows (Jukebox off-term)
+		//If no next shows (Off-air off-term)
 		if (!shows || shows[0] === null) {
 			Timelord._$('#next-shows').addClass('hidden');
 		//Else, if there are next shows

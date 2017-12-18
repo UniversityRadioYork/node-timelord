@@ -84,24 +84,32 @@ footer.sticky {
 	font-size: 12vw;
 	line-height: 1em;
 
+	}
+
+  //Off Air
+  &.studio0 {
+    color: orange;
   }
 
+  //Studio 1
   &.studio1 {
-	color: red;
+    color: red;
   }
 
+  //Studio 2
   &.studio2 {
-	color: #0044BA;
+    color: rgb(36, 110, 230);
   }
 
+  //Jukebox
   &.studio3 {
-	color: #0F0;
+    color: #0F0;
   }
 
+  //Outside Broadcast
   &.studio4 {
-	color: #bb00dc;
+    color: #bb00dc;
   }
-
 }
 
 #time {
