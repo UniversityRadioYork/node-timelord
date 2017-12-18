@@ -31,10 +31,6 @@ window.Timelord = {
 		Timelord._$ = $;
 		Timelord._config = config;
 
-
-		// @TODO See if this can be removed
-		setTimeout("window.location = window.location.href", 18000000);
-
 		Timelord.loop();
 		Timelord.updateView();
 
