@@ -186,7 +186,14 @@ window.Timelord = {
 						Timelord.setOffAir(!data.payload);
 					},
 					complete: function () {
-						setTimeout(Timelord.updateActiveTerm, Timelord._config.request_timeout);
+						//Recheck the term status 10 seconds after the date changes.
+						var reloadTime = new Date();
+						reloadTime.setHours( 24 );
+						reloadTime.setMinutes( 0 );
+						reloadTime.setSeconds( 10 );
+						reloadTime.setMilliseconds( 0 );
+						var timeTillNextPoll = (reloadTime.getTime() - new Date().getTime() );
+						setTimeout(Timelord.updateActiveTerm, timeTillNextPoll);
 					}
 				});
 
