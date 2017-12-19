@@ -1,37 +1,40 @@
 {
-  "name": "node-timelord",
-  "version": "0.0.0",
-  "private": true,
-  "description": "NodeJS implementation of Timelord",
-  "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-	"type": "git",
-	"url": "git+ssh://git@github.com/UniversityRadioYork/node-timelord.git"
-  },
-  "keywords": [
-	"timelord"
-  ],
-  "author": "Chris Taylor <christhebaron@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-	"url": "https://github.com/UniversityRadioYork/node-timelord/issues"
-  },
-  "homepage": "https://github.com/UniversityRadioYork/node-timelord#readme",
-  "dependencies": {
-	"grunt": "^1.0.1",
-	"grunt-auto-install": "^0.3.0",
-	"grunt-contrib-clean": "^1.0.0",
-	"grunt-contrib-connect": "^1.0.2",
-	"grunt-contrib-copy": "^1.0.0",
-	"grunt-contrib-uglify": "^2.0.0",
-	"grunt-contrib-watch": "^1.0.0",
-	"grunt-sass": "^2.0.0",
-	"grunt-wiredep": "^3.0.1",
-	"serve-static": "^1.10.0"
-  },
-  "devDependencies": {
-	"flightplan": "^0.6.13"
-  }
+ "name": "node-timelord",
+ "version": "0.0.0",
+ "private": true,
+ "description": "NodeJS implementation of Timelord",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+ssh://git@github.com/UniversityRadioYork/node-timelord.git"
+ },
+ "keywords": [
+  "timelord"
+ ],
+ "author": "Chris Taylor <christhebaron@gmail.com>",
+ "license": "ISC",
+ "bugs": {
+  "url": "https://github.com/UniversityRadioYork/node-timelord/issues"
+ },
+ "homepage": "https://github.com/UniversityRadioYork/node-timelord#readme",
+ "dependencies": {
+  "grunt": "^1.0.1",
+  "grunt-auto-install": "^0.3.0",
+  "grunt-contrib-clean": "^1.0.0",
+  "grunt-contrib-connect": "^1.0.2",
+  "grunt-contrib-copy": "^1.0.0",
+  "grunt-contrib-uglify": "^2.0.0",
+  "grunt-contrib-watch": "^1.0.0",
+  "grunt-sass": "^2.0.0",
+  "serve-static": "^1.10.0",
+  "bootstrap": "^3.3.5",
+  "jquery": "^2.1.4",
+  "moment": "^2.10.6",
+  "jquery-ui": "^1.11.4"
+ },
+ "devDependencies": {
+  "flightplan": "^0.6.13"
+ }
 }
