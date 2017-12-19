@@ -3,22 +3,6 @@ module.exports = function (grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-	//	wiredep: {
-	//		task: {
-	//			src: [
-	//				'bin/**/*.html',   // .html support...
-	//			],
-	//			overrides: {
-	//				"bootstrap": {
-	//					"main": [
-	//						"less/bootstrap.less",
-	//						"dist/css/bootstrap.css",
-	//						"dist/js/bootstrap.js"
-	//					]
-	//				}
-	//			}
-	//		}
-	//	},
 		sass: {
 			options: {
 				sourceMap: true,
