@@ -57,7 +57,7 @@ module.exports = function (grunt) {
 			},
 			pages: {
 				files: ['src/**/*.html'],
-				tasks: ['wiredep'],
+				tasks: ['copy'],
 				options: {
 					livereload: true
 				}
