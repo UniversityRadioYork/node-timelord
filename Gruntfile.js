@@ -3,22 +3,22 @@ module.exports = function (grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		wiredep: {
-			task: {
-				src: [
-					'bin/**/*.html',   // .html support...
-				],
-				overrides: {
-					"bootstrap": {
-						"main": [
-							"less/bootstrap.less",
-							"dist/css/bootstrap.css",
-							"dist/js/bootstrap.js"
-						]
-					}
-				}
-			}
-		},
+	//	wiredep: {
+	//		task: {
+	//			src: [
+	//				'bin/**/*.html',   // .html support...
+	//			],
+	//			overrides: {
+	//				"bootstrap": {
+	//					"main": [
+	//						"less/bootstrap.less",
+	//						"dist/css/bootstrap.css",
+	//						"dist/js/bootstrap.js"
+	//					]
+	//				}
+	//			}
+	//		}
+	//	},
 		sass: {
 			options: {
 				sourceMap: true,
@@ -84,6 +84,30 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
+						cwd: 'node_modules/bootstrap/dist/css/',
+						src: '**/*.min.css',
+						dest: 'bin/npm_components/stylesheets/'
+					},
+					{
+						expand: true,
+						cwd: 'node_modules/bootstrap/dist/js/',
+						src: '**/*.min.js',
+						dest: 'bin/npm_components/scripts/'
+					},
+					{
+						expand: true,
+						cwd: 'node_modules/jquery/dist/',
+						src: '**/*.min.js',
+						dest: 'bin/npm_components/scripts/'
+					},
+					{
+						expand: true,
+						cwd: 'node_modules/moment/min/',
+						src: '**/*.min.js',
+						dest: 'bin/npm_components/scripts/'
+					},
+					{
+						expand: true,
 						cwd: 'src/',
 						src: '**/*.html',
 						dest: 'bin/'
@@ -99,7 +123,7 @@ module.exports = function (grunt) {
 			main: {
 				src: [
 					"bin/*",
-					"!bin/bower_components/**"
+					"!bin/npm_components/**"
 				]
 			}
 		},
@@ -110,7 +134,7 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-wiredep');
+	//grunt.loadNpmTasks('grunt-wiredep');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -125,6 +149,6 @@ module.exports = function (grunt) {
 	// Just for compiling things
 	grunt.registerTask('build', ['clean', 'build:noclean']);
 
-	grunt.registerTask('build:noclean', ['auto_install', 'copy', 'wiredep', 'sass', 'uglify']);
+	grunt.registerTask('build:noclean', ['auto_install', 'copy', 'sass', 'uglify']);
 
 };

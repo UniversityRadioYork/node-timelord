@@ -29,7 +29,11 @@
   "grunt-contrib-watch": "^1.0.0",
   "grunt-sass": "^1.1.0",
   "grunt-wiredep": "^3.0.1",
-  "serve-static": "^1.10.0"
+  "serve-static": "^1.10.0",
+  "bootstrap": "^3.3.5",
+  "jquery": "^2.1.4",
+  "moment": "^2.10.6",
+  "jquery-ui": "^1.11.4"
  },
  "devDependencies": {
   "flightplan": "^0.6.13"
