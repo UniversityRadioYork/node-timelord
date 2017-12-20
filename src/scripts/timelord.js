@@ -330,7 +330,7 @@ window.Timelord = {
 	/**
 	 * Sets the on air status
 	 *
-	 * @param {Object} data
+	 * @param {Boolean} data
 	 */
 	setOffAir: function (data) {
 		Timelord.offair = data;
