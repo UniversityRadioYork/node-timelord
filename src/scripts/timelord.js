@@ -253,15 +253,18 @@ window.Timelord = {
 			success: function (data) {
 				sources = data["icestats"]["source"];
 				song = "";
-				// Look for the live-high stream. Set song to nothing if there's any error.
-				for (k = 0; k < sources.length; ++k) {
-					if (sources[k]["listenurl"].indexOf("live-high") == -1) {
-						continue;
+				// Just in case liquidsoap isn't quite working, it won't get permanently stuck.
+				if (typeof sources !== "undefined") {
+					// Look for the live-high stream. Set song to nothing if there's any error.
+					for (k = 0; k < sources.length; ++k) {
+						if (sources[k]["listenurl"].indexOf("live-high") == -1) {
+							continue;
+						}
+						if (sources[k]["title"] != "  - URY") {
+							song = sources[k]["title"];
+						}
+						break;
 					}
-					if (sources[k]["title"] != "  - URY") {
-						song = sources[k]["title"];
-					}
-					break;
 				}
 				Timelord.setSong(song);
 			},
