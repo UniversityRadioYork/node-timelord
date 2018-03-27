@@ -131,8 +131,8 @@ window.Timelord = {
 		// Set the current and next shows
 		Timelord.updateShowInfo();
 
-		// Set the currently playing song
-		Timelord.updateSong();
+		// Set the currently playing track
+		Timelord.updateTrack();
 
 		// Update the alerts
 		Timelord.updateAlerts();
@@ -204,36 +204,36 @@ window.Timelord = {
 
 	/**
 	 * Calls for the Icecast JSON
-	 * and sets the song currently being broadcast.
+	 * and sets the track currently being broadcast.
 	 */
-	updateSong: function() {
+	updateTrack: function() {
 
 		Timelord._$.ajax({
 			url: Timelord._config.icecast_json_url,
 			dataType: "json",
 			success: function (data) {
 				sources = data["icestats"]["source"];
-				song = "";
+				track = "";
 				// Just in case liquidsoap isn't quite working, it won't get permanently stuck.
 				if (typeof sources !== "undefined") {
-					// Look for the live-high stream. Set song to nothing if there's any error.
+					// Look for the live-high stream. Set track to nothing if there's any error.
 					for (k = 0; k < sources.length; ++k) {
 						if (sources[k]["listenurl"].indexOf("live-high") == -1) {
 							continue;
 						}
 						if (sources[k]["title"] != "  - URY") {
-							song = sources[k]["title"];
+							track = sources[k]["title"];
 						}
 						break;
 					}
 				}
-				Timelord.setSong(song);
+				Timelord.setTrack(track);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateSong, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateTrack, Timelord._config.request_timeout);
 			},
 			error: function() {
-				Timelord.setSong("");
+				Timelord.setTrack("");
 			}
 		});
 
@@ -425,13 +425,13 @@ window.Timelord = {
 	},
 
 	/**
-	 * Sets the current song name
+	 * Sets the current track name
 	 *
-	 * @param {String} song
+	 * @param {String} track
 	 */
-	setSong: function(song) {
+	setTrack: function(track) {
 
-		Timelord._$('#current-song').find('.content').text(song);
+		Timelord._$('#current-track').find('.content').text(track);
 
 	},
 
