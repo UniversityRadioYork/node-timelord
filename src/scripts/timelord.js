@@ -14,9 +14,6 @@ window.Timelord = {
 		s4: false //OB
 	},
 
-	// Holds if the station is said to be off air (to override selector displayed)
-	offair: false,
-
 	news: false,
 
 
@@ -128,9 +125,6 @@ window.Timelord = {
 	 */
 	updateView: function () {
 
-		// Update the term status information
-		Timelord.updateActiveTerm();
-
 		// Update the Studio information
 		Timelord.updateStudioInfo();
 
@@ -169,31 +163,6 @@ window.Timelord = {
 		});
 
 	},
-
-	/**
-	 * Calls the API isActiveTerm endpoint and
-	 * sets the current on/off air status.
-	 */
-	updateActiveTerm: function () {
-
-				Timelord.callAPI({
-					url: Timelord._config.api_endpoints.isActiveTerm,
-					success: function (data) {
-						Timelord.setOffAir(!data.payload);
-					},
-					complete: function () {
-						//Recheck the term status 10 seconds after the date changes.
-						var reloadTime = new Date();
-						reloadTime.setHours( 24 );
-						reloadTime.setMinutes( 0 );
-						reloadTime.setSeconds( 10 );
-						reloadTime.setMilliseconds( 0 );
-						var timeTillNextPoll = (reloadTime.getTime() - new Date().getTime() );
-						setTimeout(Timelord.updateActiveTerm, timeTillNextPoll);
-					}
-				});
-
-			},
 
 	/**
 	 * Calls the API statusAtTime endpoint and
@@ -320,15 +289,6 @@ window.Timelord = {
 			}
 		});
 
-	},
-
-	/**
-	 * Sets the on air status
-	 *
-	 * @param {Boolean} data
-	 */
-	setOffAir: function (data) {
-		Timelord.offair = data;
 	},
 
 	/**
