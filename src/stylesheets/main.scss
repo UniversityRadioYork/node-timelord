@@ -86,11 +86,6 @@ footer.sticky {
 
 	}
 
-  //Off Air
-  &.studio0 {
-    color: orange;
-  }
-
   //Studio 1
   &.studio1 {
     color: red;
@@ -109,6 +104,11 @@ footer.sticky {
   //Outside Broadcast
   &.studio4 {
     color: #bb00dc;
+  }
+
+  //Off Air
+  &.studio8 {
+    color: orange;
   }
 }
 
@@ -162,7 +162,7 @@ footer.sticky {
 
 }
 
-#current-song {
+#current-track {
 
   font-size: 3.8em;
   font-variant: small-caps;

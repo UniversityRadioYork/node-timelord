@@ -14,9 +14,6 @@ window.Timelord = {
 		s4: false //OB
 	},
 
-	// Holds if the station is said to be off air (to override selector displayed)
-	offair: false,
-
 	news: false,
 
 
@@ -128,17 +125,14 @@ window.Timelord = {
 	 */
 	updateView: function () {
 
-		// Update the term status information
-		Timelord.updateActiveTerm();
-
 		// Update the Studio information
 		Timelord.updateStudioInfo();
 
 		// Set the current and next shows
 		Timelord.updateShowInfo();
 
-		// Set the currently playing song
-		Timelord.updateSong();
+		// Set the currently playing track
+		Timelord.updateTrack();
 
 		// Update the alerts
 		Timelord.updateAlerts();
@@ -171,31 +165,6 @@ window.Timelord = {
 	},
 
 	/**
-	 * Calls the API isActiveTerm endpoint and
-	 * sets the current on/off air status.
-	 */
-	updateActiveTerm: function () {
-
-				Timelord.callAPI({
-					url: Timelord._config.api_endpoints.isActiveTerm,
-					success: function (data) {
-						Timelord.setOffAir(!data.payload);
-					},
-					complete: function () {
-						//Recheck the term status 10 seconds after the date changes.
-						var reloadTime = new Date();
-						reloadTime.setHours( 24 );
-						reloadTime.setMinutes( 0 );
-						reloadTime.setSeconds( 10 );
-						reloadTime.setMilliseconds( 0 );
-						var timeTillNextPoll = (reloadTime.getTime() - new Date().getTime() );
-						setTimeout(Timelord.updateActiveTerm, timeTillNextPoll);
-					}
-				});
-
-			},
-
-	/**
 	 * Calls the API statusAtTime endpoint and
 	 * sets the current studio information.
 	 */
@@ -204,15 +173,7 @@ window.Timelord = {
 		Timelord.callAPI({
 			url: Timelord._config.api_endpoints.statusAtTime,
 			success: function (data) {
-				if ((Timelord.offair) && (data.payload.studio == 3)) {
-					//If we are off air and we've switched to jukebox, show as off air.
-					Timelord.setStudio(0);
-					//Could be anything but 3, just so that the Jukebox light is not green
-					//Effectively disables any studio light from being on air.
-					data.payload.studio = 0;
-				} else {
-					Timelord.setStudio(data.payload.studio);
-				}
+				Timelord.setStudio(data.payload.studio);
 				Timelord.setStudioPowerLevel(data.payload);
 			},
 			complete: function () {
@@ -243,36 +204,36 @@ window.Timelord = {
 
 	/**
 	 * Calls for the Icecast JSON
-	 * and sets the song currently being broadcast.
+	 * and sets the track currently being broadcast.
 	 */
-	updateSong: function() {
+	updateTrack: function() {
 
 		Timelord._$.ajax({
 			url: Timelord._config.icecast_json_url,
 			dataType: "json",
 			success: function (data) {
 				sources = data["icestats"]["source"];
-				song = "";
+				track = "";
 				// Just in case liquidsoap isn't quite working, it won't get permanently stuck.
 				if (typeof sources !== "undefined") {
-					// Look for the live-high stream. Set song to nothing if there's any error.
+					// Look for the live-high stream. Set track to nothing if there's any error.
 					for (k = 0; k < sources.length; ++k) {
 						if (sources[k]["listenurl"].indexOf("live-high") == -1) {
 							continue;
 						}
 						if (sources[k]["title"] != "  - URY") {
-							song = sources[k]["title"];
+							track = sources[k]["title"];
 						}
 						break;
 					}
 				}
-				Timelord.setSong(song);
+				Timelord.setTrack(track);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateSong, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateTrack, Timelord._config.request_timeout);
 			},
 			error: function() {
-				Timelord.setSong("");
+				Timelord.setTrack("");
 			}
 		});
 
@@ -328,15 +289,6 @@ window.Timelord = {
 			}
 		});
 
-	},
-
-	/**
-	 * Sets the on air status
-	 *
-	 * @param {Boolean} data
-	 */
-	setOffAir: function (data) {
-		Timelord.offair = data;
 	},
 
 	/**
@@ -426,20 +378,17 @@ window.Timelord = {
 	setStudio: function (studio) {
 
 		Timelord._$('#studio')
-			.removeClass('studio0')
 			.removeClass('studio1')
 			.removeClass('studio2')
 			.removeClass('studio3')
-			.removeClass('studio4');
+			.removeClass('studio4')
+			.removeClass('studio8');
 
 		Timelord._$('#studio').addClass('studio' + studio);
 
 		var studioText;
 
 		switch (studio) {
-			case 0:
-				studioText = 'Station is Off Air';
-				break;
 			case 1:
 			case 2:
 				studioText = 'Studio ' + studio + ' is On Air';
@@ -449,6 +398,9 @@ window.Timelord = {
 				break;
 			case 4:
 				studioText = 'Outside Broadcast';
+				break;
+			case 8:
+				studioText = 'Station is Off Air';
 				break;
 			default:
 				studioText = 'Unknown Output';
@@ -473,13 +425,13 @@ window.Timelord = {
 	},
 
 	/**
-	 * Sets the current song name
+	 * Sets the current track name
 	 *
-	 * @param {String} song
+	 * @param {String} track
 	 */
-	setSong: function(song) {
+	setTrack: function(track) {
 
-		Timelord._$('#current-song').find('.content').text(song);
+		Timelord._$('#current-track').find('.content').text(track);
 
 	},
 
