@@ -457,13 +457,13 @@ window.Timelord = {
 	 */
 	setNextShowsInfo: function (shows) {
 		//If no next shows (Off-air off-term)
-		if (!shows || shows[0] === null) {
+		if (!shows || typeof shows[0] == "undefined") {
 			Timelord._$('#next-shows').addClass('hidden');
 		//Else, if there are next shows
 		} else {
 			var numNextShows = 2;
 			//If there is only one show (last show before end of term)
-			if (shows[1] === null) {
+			if (typeof shows[1] == "undefined") {
 				numNextShows = 1;
 				Timelord._$('#next1').addClass('hidden');
 			//Else, if there are two shows (normal term-time)
