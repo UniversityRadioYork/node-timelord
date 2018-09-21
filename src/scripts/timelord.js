@@ -387,14 +387,16 @@ window.Timelord = {
 		Timelord._$('#studio').addClass('studio' + studio);
 
 		var studioText;
-
+		var onAirText = ' is On Air';
 		switch (studio) {
 			case 1:
+				studioText = 'Studio Red' + onAirText;
+				break;
 			case 2:
-				studioText = 'Studio ' + studio + ' is On Air';
+				studioText = 'Studio Blue' + onAirText; 
 				break;
 			case 3:
-				studioText = 'Jukebox is On Air';
+				studioText = 'Jukebox' + onAirText;
 				break;
 			case 4:
 				studioText = 'Outside Broadcast';
