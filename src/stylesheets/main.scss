@@ -2,7 +2,7 @@
 $font_main: "Source Sans Pro", "sans-serif";
 $font_bracket: "Times New Roman", "serif";
 
-$footer_height: 70px;
+$footer_height: 130px;
 
 $footer-mobile-height: 35px;
 $footer-mobile-breakpoint: 500px;
@@ -13,17 +13,16 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: $footer_height;
-  @media (max-width: $footer-mobile-breakpoint) {
-	margin-bottom: $footer-mobile-height;
-  }
+
+  display: flex;
+  flex-direction: column;
 
   background-color: black;
   font-family: $font_main;
   color: white;
   font-size: 12px;
 
+  height: 100vh;
   // At small sizes just make the font size
   // responsive to the screen height
   @media (max-height: 700px) {
@@ -31,18 +30,36 @@ body {
 	font-size: 1.5vh;
 
   }
+  @media (min-width: 1600px) {
+    zoom: 1.2;
+  }
+
+}
+
+.inactive {
+  color: darkgrey;
+}
+
+.container {
+  flex: 1;
+}
+.text-center {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+
+
 
 }
 
 footer.sticky {
 
-  position: absolute;
-  bottom: 0;
+  //position: absolute;
+
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: $footer_height;
+  background: #000;
   @media (max-width: $footer-mobile-breakpoint) {
-	height: $footer-mobile-height;
+	  height: $footer-mobile-height;
   }
 
   .container {
@@ -53,24 +70,10 @@ footer.sticky {
 
 #date {
 
-  font-weight: bold;
-  font-size: 2em;
+
+  font-size: 3.5em;
 
 }
-
-.counter {
-	font-size: 8em;
-	color: #7cd1ff;
-}
-
-#countdown101 {
-	color: #7cd1ff;
-}
-
-#countUP101 {
-	color: #7cd1ff;
-}
-
 
 #studio {
 
@@ -114,7 +117,8 @@ footer.sticky {
 
 #time {
 
-  font-size: 13em;
+  font-size: 12em;
+  line-height: 1em;
 
   // At small sizes just make the font size
   // responsive to the screen height
@@ -166,15 +170,21 @@ footer.sticky {
 
   font-size: 3.8em;
   font-variant: small-caps;
+  border: 3px solid white;
 
 }
 
 #breaking-news {
 
-  font-size: 5em;
+  border: 3px solid #F00;
+}
+#breaking-news .content {
   font-weight: bold;
   color: #F00;
-
+  font-size: 5em;
+}
+#breaking-news .content iframe{
+  margin-bottom: -0.35em;
 }
 
 .up-next {
@@ -183,23 +193,36 @@ footer.sticky {
   font-variant: small-caps;
 
 }
+#status {
+
+  padding: 0;
+  text-align: center;
+  font-size: 0.9em;
+
+  border-bottom: 0;
+  overflow: hidden;
+
+  vertical-align: middle;
+
+  .pull-left {
+    padding: 0 10px;
+    font-size: 0.7em;
+
+  }
+
+}
 
 #alerts {
 
   & > * {
 
-	padding: 0;
-
-	height: $footer_height;
-
-	padding-top: 15px;
+	padding: 10px 0;
 
 	@media (max-width: $footer-mobile-breakpoint) {
 	  height: $footer-mobile-height;
 
 	  padding-top: 8px;
 	}
-
 	//display: -webkit-box;
 	//display: -ms-flexbox;
 	//display: -webkit-flex;
@@ -210,7 +233,7 @@ footer.sticky {
 
 	text-align: center;
 
-	border: 2px solid white;
+	border: 3px solid white;
 
 	font-size: 2.5em;
 

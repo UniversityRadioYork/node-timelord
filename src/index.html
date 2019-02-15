@@ -15,25 +15,20 @@
 </head>
 <body>
 
-<div class="container">
-
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="pull-right">
-				<span id="date">
-					!!DATE!!
-				</span>
-			</div>
-		</div>
-	</div>
-
-	<div class="text-center">
-
+<div class="container text-center">
 		<div class="row">
 			<div class="col-xs-12">
 				<span id="studio">
 					!!STUDIO!!
 				</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="date">
+					!!DATE!!
+				</div>
 			</div>
 		</div>
 
@@ -45,71 +40,47 @@
 			</div>
 		</div>
 
-		<div id="breaking-news" class="row hidden">
+		<div class="row" id="current-show-title">
 			<div class="col-xs-12">
-					<span id="content">
-						Good News Everyone
-					</span>
+			<span class="content">
+				!!URY!!
+			</span>
 			</div>
 		</div>
 
-		<div id="hide-when-breaking-news">
+		<div id="next-shows">
 
-
-			<div class="row" id="current-track">
+			<div class="row">
 				<div class="col-xs-12">
-					<span class="content">
-						!!TRACK!!
-					</span>
+			<span id="next0" class="up-next">
+				UP NEXT: <span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
+			</span>
 				</div>
-			</div>
-
-			<div class="row" id="current-show-title">
-				<div class="col-xs-12">
-				<span class="content">
-					!!URY!!
-				</span>
-				</div>
-			</div>
-
-			<div id="next-shows">
-
-				<div class="row">
-					<div class="col-xs-12">
-				<span id="next0" class="up-next">
-					UP NEXT: <span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
-				</span>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-xs-12">
-				<span id="next1" class="up-next">
-					<span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
-				</span>
-					</div>
-				</div>
-
 			</div>
 
 			<div class="row">
-				<div class="col-xs-6">
-					<span id="countUP101" class="counter">!!101 COUNTUP!!</span>
-				</div>
-				<div class="col-xs-6">
-					<span id="countdown101" class="counter">!!101 COUNTDOWN!!</span>
+				<div class="col-xs-12">
+			<span id="next1" class="up-next">
+				<span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
+			</span>
 				</div>
 			</div>
 
 		</div>
-
-	</div>
-
 </div>
 
 <footer class="sticky">
 
 	<div class="container-fluid">
+		<div class="row" id="status">
+			<div id="current-track" class="hide-when-breaking-news">
+				<div class="pull-left heading"></div>
+				<div class="content">!! TRACK !!</div>
+			</div>
+			<div id="breaking-news" class="hidden">
+				<div class="content">!! BREAKING NEWS !!</div>
+			</div>
+		</div>
 		<div class="row" id="alerts">
 			<div class="col-xs-2" id="s1">Studio Red</div>
 			<div class="col-xs-2" id="s2">Studio Blue</div>
