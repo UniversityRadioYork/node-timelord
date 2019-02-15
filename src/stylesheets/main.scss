@@ -43,18 +43,14 @@ body {
 .container {
   flex: 1;
 }
+
 .text-center {
   width: 100%;
   margin: 0 auto;
   position: relative;
-
-
-
 }
 
 footer.sticky {
-
-  //position: absolute;
 
   width: 100%;
   background: #000;
@@ -69,10 +65,7 @@ footer.sticky {
 }
 
 #date {
-
-
   font-size: 3.5em;
-
 }
 
 #studio {
@@ -124,7 +117,7 @@ footer.sticky {
   // responsive to the screen height
   @media (max-width: 360px) {
 
-	font-size: 25vw;
+	  font-size: 25vw;
 
   }
 
@@ -223,13 +216,6 @@ footer.sticky {
 
 	  padding-top: 8px;
 	}
-	//display: -webkit-box;
-	//display: -ms-flexbox;
-	//display: -webkit-flex;
-	//display: flex;
-
-	//justify-content: center;
-	//align-items: center;
 
 	text-align: center;
 
