@@ -7,6 +7,8 @@ $footer_height: 130px;
 $footer-mobile-height: 35px;
 $footer-mobile-breakpoint: 500px;
 
+$widescreen-breakpoint: 1600px;
+
 html {
   position: relative;
   min-height: 100%;
@@ -135,29 +137,28 @@ footer.sticky {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content min-content;
+  grid-template-columns: 1fr 1fr max-content;
+  grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content;
   grid-template-areas: 
-  "weather date"
-  "current-show current-show"
-  "studio studio"
-  "time time"
-  "current-track current-track"
-  "next0 next1"
-  "breaking-news breaking-news"
-  "footer footer";
+  "weather date breaking-news"
+  "current-show current-show breaking-news"
+  "studio studio breaking-news"
+  "time time breaking-news"
+  "current-track current-track breaking-news"
+  "next0 next1 breaking-news"
+  "footer footer breaking-news";
 
-  @media (min-width: 1600px) {
-    grid-template-columns: 1fr 1fr min-content;
-    grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content;
+  @media (max-width: $widescreen-breakpoint) {
+    grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content min-content;
     grid-template-areas: 
-    "weather date breaking-news"
-    "current-show current-show breaking-news"
-    "studio studio breaking-news"
-    "time time breaking-news"
-    "current-track current-track breaking-news"
-    "next0 next1 breaking-news"
-    "footer footer breaking-news";
+    "weather date"
+    "current-show current-show"
+    "studio studio"
+    "time time"
+    "current-track current-track"
+    "next0 next1"
+    "breaking-news breaking-news"
+    "footer footer";
   }
 
   #studio {
@@ -267,6 +268,21 @@ footer.sticky {
 
   #breaking-news {
     grid-area: breaking-news;
+    height: 100%;
+    width: 30vw;
+   
+    @media (max-width: $widescreen-breakpoint) {
+      height: 25vh;
+      width: 100%;
+    }
+    
+    .content {
+      display: initial;
+
+      iframe {
+        border: none;
+      }
+    }
   }
 
 }
