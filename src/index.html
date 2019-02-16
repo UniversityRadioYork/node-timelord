@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
 	<title>Studio Clock | University Radio York</title>
 
@@ -10,13 +11,12 @@
 	<link href='npm_components/stylesheets/bootstrap.min.css' rel='stylesheet' type='text/css'>
 	<link href='stylesheets/main.css' rel='stylesheet' type='text/css'>
 
-	<link href="https://ury.org.uk/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+	<link href="https://ury.org.uk/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
-<body>
 
-<div class="container text-center" style="display:flex;justify-content:center;align-items:center;">
-	<div class="main">
+<body>
+	<div class="main text-center">
 		<span id="studio">
 			!!STUDIO!!
 		</span>
@@ -40,37 +40,34 @@
 			<span class="name">!!UP NEXT!!</span> @ <span class="time">!!TIME!!</span>
 		</span>
 	</div>
-</div>
 
-<footer class="sticky">
-
-	<div class="container-fluid">
-		<div class="row" id="status">
-			<div id="current-track" class="hide-when-breaking-news">
-				<div class="pull-left heading"></div>
-				<div class="content">!! TRACK !!</div>
+	<footer class="sticky">
+		<div class="container-fluid">
+			<div class="row" id="status">
+				<div id="current-track" class="hide-when-breaking-news">
+					<div class="pull-left heading"></div>
+					<div class="content">!! TRACK !!</div>
+				</div>
+				<div id="breaking-news" class="hidden">
+					<div class="content">!! BREAKING NEWS !!</div>
+				</div>
 			</div>
-			<div id="breaking-news" class="hidden">
-				<div class="content">!! BREAKING NEWS !!</div>
+			<div class="row" id="alerts">
+				<div class="col-xs-2" id="s1">Studio Red</div>
+				<div class="col-xs-2" id="s2">Studio Blue</div>
+				<div class="col-xs-2" id="s3">Jukebox</div>
+				<div class="col-xs-2" id="s4">OB</div>
+				<div class="col-xs-2" id="obit">OBIT</div>
+				<div class="col-xs-2" id="dead">DEAD AIR</div>
 			</div>
 		</div>
-		<div class="row" id="alerts">
-			<div class="col-xs-2" id="s1">Studio Red</div>
-			<div class="col-xs-2" id="s2">Studio Blue</div>
-			<div class="col-xs-2" id="s3">Jukebox</div>
-			<div class="col-xs-2" id="s4">OB</div>
-			<div class="col-xs-2" id="obit">OBIT</div>
-			<div class="col-xs-2" id="dead">DEAD AIR</div>
-		</div>
-	</div>
+	</footer>
 
-</footer>
-
-<script src="npm_components/scripts/jquery.min.js"></script>
-<script src="npm_components/scripts/bootstrap.min.js"></script>
-<script src="npm_components/scripts/moment.min.js"></script>
-<script src="scripts/timelord.min.js"></script>
-<script src="scripts/main.min.js"></script>
+	<script src="npm_components/scripts/jquery.min.js"></script>
+	<script src="npm_components/scripts/bootstrap.min.js"></script>
+	<script src="npm_components/scripts/moment.min.js"></script>
+	<script src="scripts/timelord.min.js"></script>
+	<script src="scripts/main.min.js"></script>
 
 </body>
 </html>
