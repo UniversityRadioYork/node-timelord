@@ -50,7 +50,7 @@ window.Timelord = {
 	updateTime: function (t) {
 
 		Timelord._$('#time').text(t.format("HH:mm:ss"));
-		Timelord._$('#date').text(t.format("Do MMMM YYYY"));
+		Timelord._$('#date').text(t.format("dddd, Do MMMM YYYY"));
 
 	},
 
