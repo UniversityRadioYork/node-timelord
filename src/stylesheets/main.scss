@@ -2,10 +2,12 @@
 $font_main: "Source Sans Pro", "sans-serif";
 $font_bracket: "Times New Roman", "serif";
 
-$footer_height: 70px;
+$footer_height: 130px;
 
 $footer-mobile-height: 35px;
 $footer-mobile-breakpoint: 500px;
+
+$widescreen-breakpoint: 1600px;
 
 html {
   position: relative;
@@ -13,36 +15,30 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: $footer_height;
-  @media (max-width: $footer-mobile-breakpoint) {
-	margin-bottom: $footer-mobile-height;
-  }
-
   background-color: black;
   font-family: $font_main;
   color: white;
-  font-size: 12px;
+  font-size: 1.3vmin;
+  height: 100vh;
 
-  // At small sizes just make the font size
-  // responsive to the screen height
-  @media (max-height: 700px) {
+}
 
-	font-size: 1.5vh;
+.inactive {
+  color: darkgrey;
+}
 
-  }
-
+.text-center {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
 }
 
 footer.sticky {
 
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: $footer_height;
+  background: #000;
   @media (max-width: $footer-mobile-breakpoint) {
-	height: $footer-mobile-height;
+	  height: $footer-mobile-height;
   }
 
   .container {
@@ -51,207 +47,239 @@ footer.sticky {
 
 }
 
-#date {
-
-  font-weight: bold;
-  font-size: 2em;
-
-}
-
-.counter {
-	font-size: 8em;
-	color: #7cd1ff;
-}
-
-#countdown101 {
-	color: #7cd1ff;
-}
-
-#countUP101 {
-	color: #7cd1ff;
-}
-
-
-#studio {
-
-  font-weight: bold;
-  font-size: 6.5em;
-
-  // At small sizes just make the font size
-  // responsive to the screen height
-  @media (max-width: 360px) {
-
-	font-size: 12vw;
-	line-height: 1em;
-
-	}
-
-  //Studio 1
-  &.studio1 {
-    color: red;
-  }
-
-  //Studio 2
-  &.studio2 {
-    color: rgb(36, 110, 230);
-  }
-
-  //Jukebox
-  &.studio3 {
-    color: #0F0;
-  }
-
-  //Outside Broadcast
-  &.studio4 {
-    color: #bb00dc;
-  }
-
-  //Off Air
-  &.studio8 {
-    color: orange;
-  }
-}
-
-#time {
-
-  font-size: 13em;
-
-  // At small sizes just make the font size
-  // responsive to the screen height
-  @media (max-width: 360px) {
-
-	font-size: 25vw;
-
-  }
-
-}
-
-#current-show-title {
-
-  font-size: 3.8em;
-  font-variant: small-caps;
-
-  .content {
-
-	&::before, &::after {
-
-	  font-family: $font_bracket;
-	  font-size: 140%;
-	  letter-spacing: 2px;
-	  text-shadow: 0 0 30px #17A;
-
-	}
-
-	&::before {
-
-	  content: "((";
-
-	}
-
-	&::after {
-
-	  content: "))";
-
-	}
-
-	.news {
-	  color: #2CDFFF;
-	}
-
-  }
-
-}
-
-#current-track {
-
-  font-size: 3.8em;
-  font-variant: small-caps;
-
-}
-
 #breaking-news {
+  border: 3px solid #F00;
+}
 
-  font-size: 5em;
+#breaking-news .content {
   font-weight: bold;
   color: #F00;
+  font-size: 5em;
+}
 
+#breaking-news .content iframe{
+  margin-bottom: -0.35em;
 }
 
 .up-next {
-
   font-size: 2.8em;
   font-variant: small-caps;
+}
 
+#status {
+  padding: 0;
+  text-align: center;
+  font-size: 0.9em;
+
+  border-bottom: 0;
+  overflow: hidden;
+
+  vertical-align: middle;
+
+  .pull-left {
+    padding: 0 10px;
+    font-size: 0.7em;
+
+  }
 }
 
 #alerts {
-
   & > * {
+    padding: 10px 0;
 
-	padding: 0;
+    @media (max-width: $footer-mobile-breakpoint) {
+      height: $footer-mobile-height;
 
-	height: $footer_height;
+      padding-top: 8px;
+    }
 
-	padding-top: 15px;
+    text-align: center;
 
-	@media (max-width: $footer-mobile-breakpoint) {
-	  height: $footer-mobile-height;
+    border: 3px solid white;
 
-	  padding-top: 8px;
-	}
+    font-size: 2.5em;
 
-	//display: -webkit-box;
-	//display: -ms-flexbox;
-	//display: -webkit-flex;
-	//display: flex;
+    // At small sizes just make the font size
+    // responsive to the screen width
+    @media (max-width: 768px) {
+      font-size: 3.5vw;
+    }
 
-	//justify-content: center;
-	//align-items: center;
+    &.worse {
+      border: 3px solid #F00;
+      color: #F00;
 
-	text-align: center;
+      font-weight: bold;
+    }
 
-	border: 2px solid white;
+    &.bad {
+      border: 3px solid #F00;
+      color: #F00;
+    }
 
-	font-size: 2.5em;
+    &.standby {
+      border: 3px solid orange;
+      color: orange;
+    }
 
-	// At small sizes just make the font size
-	// responsive to the screen width
-	@media (max-width: 768px) {
+    &.good {
+      border: 3px solid #00FF00;
+      color: #00FF00;
+    }
+  }
+}
 
-	  font-size: 3.5vw;
 
-	}
+.main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr max-content;
+  grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content;
+  grid-template-areas: 
+  "weather date breaking-news"
+  "current-show current-show breaking-news"
+  "studio studio breaking-news"
+  "time time breaking-news"
+  "current-track current-track breaking-news"
+  "next0 next1 breaking-news"
+  "footer footer breaking-news";
 
-	&.worse {
+  @media (max-width: $widescreen-breakpoint) {
+    grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content min-content;
+    grid-template-areas: 
+    "weather date"
+    "current-show current-show"
+    "studio studio"
+    "time time"
+    "current-track current-track"
+    "next0 next1"
+    "breaking-news breaking-news"
+    "footer footer";
+  }
 
-	  border: 3px solid #F00;
-	  color: #F00;
+  #studio {
+    grid-area: studio;
 
-	  font-weight: bold;
+    font-weight: bold;
+    font-size: 6.5em;
 
-	}
+    //Studio 1
+    &.studio1 {
+      color: red;
+    }
 
-	&.bad {
+    //Studio 2
+    &.studio2 {
+      color: rgb(36, 110, 230);
+    }
 
-	  border: 3px solid #F00;
-	  color: #F00;
+    //Jukebox
+    &.studio3 {
+      color: #0F0;
+    }
 
-	}
+    //Outside Broadcast
+    &.studio4 {
+      color: #bb00dc;
+    }
 
-	&.standby {
+    //Off Air
+    &.studio8 {
+      color: orange;
+    }
+  }
 
-	  border: 3px solid orange;
-	  color: orange;
+  #date {
+    grid-area: date;
 
-	}
+    font-size: 3.5em;
+    text-align: right;
+    align-self: start;
+    padding: 0 10px;
+  }
 
-	&.good {
+  #time {
+    grid-area: time;
 
-	  border: 3px solid #00FF00;
-	  color: #00FF00;
+    font-size: 12em;
+    line-height: 1em;
 
-	}
+    // At small sizes just make the font size
+    // responsive to the screen height
+    @media (max-width: 360px) {
+	    font-size: 25vw;
+    }
+  }
 
+  #current-show-title {
+    grid-area: current-show;
+
+    font-size: 3.8em;
+    font-variant: small-caps;
+  
+    .content {
+      &::before, &::after {
+        font-family: $font_bracket;
+        font-size: 140%;
+        letter-spacing: 2px;
+        text-shadow: 0 0 30px #17A;
+      }
+    
+      &::before {
+        content: "((";
+      }
+    
+      &::after {
+        content: "))";
+      }
+    
+      .news {
+        color: #2CDFFF;
+      }
+    }
+  }
+
+  #next0 {
+    grid-area: next0;
+
+    align-self: end;
+  }
+
+  #next1 {
+    grid-area: next1;
+
+    align-self: end;
+  }
+
+  #current-track {
+    grid-area: current-track;
+    padding-top: 30px;
+    font-size: 3em;
+    font-variant: small-caps;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+
+  #breaking-news {
+    grid-area: breaking-news;
+    height: 100%;
+    width: 30vw;
+   
+    @media (max-width: $widescreen-breakpoint) {
+      height: 25vh;
+      width: 100%;
+    }
+    
+    .content {
+      display: initial;
+
+      iframe {
+        border: none;
+      }
+    }
   }
 
 }

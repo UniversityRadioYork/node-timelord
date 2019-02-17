@@ -15,7 +15,9 @@ window.Timelord = {
 	},
 
 	news: false,
-
+	last_track: "",
+	current_track: "",
+	silence: false,
 
 	/**
 	 *
@@ -37,58 +39,19 @@ window.Timelord = {
 		var init = moment();
 		Timelord.updateTime(init);
 		Timelord.updateNewsMessage(init);
-		Timelord.update101(init)
 		var now = moment();
 		var timeout = (now.seconds() - init.seconds() == 0) ?
 		    1000 - now.milliseconds() : 0
 		setTimeout(Timelord.loop,
-			   timeout);
+			  timeout);
 
 	},
 
 	updateTime: function (t) {
 
 		Timelord._$('#time').text(t.format("HH:mm:ss"));
-		Timelord._$('#date').text(t.format("Do MMMM YYYY"));
+		Timelord._$('#date').text(t.format("dddd, Do MMMM YYYY"));
 
-	},
-
-	update101: function (t) {
-
-		if (Timelord.endTime101) {
-
-			if (Timelord.endTime101.diff(t) < 0) {
-				Timelord._$('#countdown101').text('-' + msToString(-Timelord.endTime101.diff(t)));
-			} else {
-				Timelord._$('#countdown101').text(msToString(Timelord.endTime101.diff(t)));
-			}
-
-
-		} else {
-			Timelord._$('#countdown101').text("");
-		}
-
-		if (Timelord.startTime101) {
-
-			Timelord._$('#countUP101').text(msToString(t.diff(Timelord.startTime101)));
-
-		} else {
-			Timelord._$('#countUP101').text("");
-		}
-
-		function msToString(ms) {
-				var hours = Math.floor(ms / 36e5).toString(),
-	        		mins = Math.floor((ms % 36e5) / 6e4).toString(),
-	        		secs = Math.round((ms % 6e4) / 1000).toString();
-
-	        	function pad(padding, str) {
-	        		return padding.substring(0, padding.length - str.length) + str
-	        	}
-
-        		return pad("00", hours)+':'+pad("00",mins)+':'+ pad("00",secs)
-
-
-			}
 	},
 
 	updateNewsMessage: function (t) {
@@ -324,13 +287,18 @@ window.Timelord = {
 	 * @param {String|null|false} news
 	 */
 	setBreakingNews: function (news) {
-
-		if (news !== null && news !== false) {
-			Timelord._$('#breaking-news').removeClass('hidden').html(news);
-			Timelord._$('#hide-when-breaking-news').addClass('hidden');
-		} else {
-			Timelord._$('#breaking-news').addClass('hidden');
-			Timelord._$('#hide-when-breaking-news').removeClass('hidden');
+		if (Timelord.silence == false) {
+			if (news !== null && news !== false) {
+				Timelord._$('#breaking-news').removeClass('hidden')
+				content = Timelord._$('#breaking-news .content');
+				if (content.html() != news) {
+					Timelord._$('#breaking-news .content').html(news);
+				}
+				Timelord._$('.hide-when-breaking-news').addClass('hidden');
+			} else {
+				Timelord._$('#breaking-news').addClass('hidden');
+				Timelord._$('.hide-when-breaking-news').removeClass('hidden');
+			}
 		}
 
 	},
@@ -359,6 +327,9 @@ window.Timelord = {
 
 		if (time >= Timelord._config.silence_timeouts.long) {
 			Timelord.setBreakingNews("RADIO SILENCE DETECTED");
+			Timelord.silence = true;
+		} else {
+			Timelord.silence = false;
 		}
 
 		if (time >= Timelord._config.silence_timeouts.short) {
@@ -393,7 +364,7 @@ window.Timelord = {
 				studioText = 'Studio Red' + onAirText;
 				break;
 			case 2:
-				studioText = 'Studio Blue' + onAirText; 
+				studioText = 'Studio Blue' + onAirText;
 				break;
 			case 3:
 				studioText = 'Jukebox' + onAirText;
@@ -432,8 +403,24 @@ window.Timelord = {
 	 * @param {String} track
 	 */
 	setTrack: function(track) {
-
-		Timelord._$('#current-track').find('.content').text(track);
+		if (Timelord.current_track != track) {
+			Timelord.last_track = Timelord.current_track;
+			Timelord.current_track = track;
+		}
+		if (Timelord.current_track == "" && Timelord.last_track == "" ) {
+			heading = "";
+			track = "";
+		} else if (Timelord.current_track != "") {
+			heading = "Now Playing:";
+			Timelord._$('#current-track').removeClass('inactive');
+			track = Timelord.current_track;
+		} else {
+			heading = "Last Played:";
+			track = Timelord.last_track;
+			Timelord._$('#current-track').addClass('inactive');
+		}
+		Timelord._$('#current-track .heading').text(heading);
+		Timelord._$('#current-track .content').text(track);
 
 	},
 
