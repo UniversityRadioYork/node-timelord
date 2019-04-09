@@ -184,10 +184,14 @@ window.Timelord = {
 						if (sources[k]["listenurl"].indexOf("live-high") == -1) {
 							continue;
 						}
-						if (sources[k]["title"] != "  - URY") {
-							track = sources[k]["title"];
+						// If icetracks hasn't sent this a title yet, it's undefined.
+						// This can happen when the stream is restarted and we're off air
+						if (typeof sources[k]["title"] !== "undefined") {
+    						if (sources[k]["title"] != "  - URY") {
+    							track = sources[k]["title"];
+    						}
 						}
-						break;
+    					break;
 					}
 				}
 				Timelord.setTrack(track);
@@ -403,11 +407,13 @@ window.Timelord = {
 	 * @param {String} track
 	 */
 	setTrack: function(track) {
+	    console.log(Timelord.current_track);
+	    console.log(track);
 		if (Timelord.current_track != track) {
 			Timelord.last_track = Timelord.current_track;
 			Timelord.current_track = track;
 		}
-			
+		
 		if (Timelord.current_track != "") {
 			heading = "Now Playing:";
 			Timelord._$('#current-track').removeClass('inactive');
@@ -558,6 +564,4 @@ window.Timelord = {
 		Timelord._$.ajax(options);
 
 	}
-
-
 };
