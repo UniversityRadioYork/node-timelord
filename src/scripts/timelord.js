@@ -407,17 +407,18 @@ window.Timelord = {
 			Timelord.last_track = Timelord.current_track;
 			Timelord.current_track = track;
 		}
-		if (Timelord.current_track == "" && Timelord.last_track == "" ) {
-			heading = "";
-			track = "";
-		} else if (Timelord.current_track != "") {
+			
+		if (Timelord.current_track != "") {
 			heading = "Now Playing:";
 			Timelord._$('#current-track').removeClass('inactive');
 			track = Timelord.current_track;
-		} else {
+		} else if (Timelord.last_track != "") {
 			heading = "Last Played:";
 			track = Timelord.last_track;
 			Timelord._$('#current-track').addClass('inactive');
+		} else {
+			heading = "";
+			track = "";
 		}
 		Timelord._$('#current-track .heading').text(heading);
 		Timelord._$('#current-track .content').text(track);
@@ -447,19 +448,22 @@ window.Timelord = {
 	setNextShowsInfo: function (shows) {
 		//If no next shows (Off-air off-term)
 		if (!shows || typeof shows[0] == "undefined") {
-			Timelord._$('#next-shows').addClass('hidden');
+			Timelord._$('.up-next').addClass('hidden'); //Both up-next's should be hidden
 		//Else, if there are next shows
 		} else {
 			var numNextShows = 2;
 			//If there is only one show (last show before end of term)
 			if (typeof shows[1] == "undefined") {
 				numNextShows = 1;
+				//Only one of the .up-next's should be shown.
 				Timelord._$('#next1').addClass('hidden');
+				Timelord._$('#next0').removeClass('hidden');
+				
 			//Else, if there are two shows (normal term-time)
 			} else {
-				Timelord._$('#next1').removeClass('hidden');
+				// All .up-next's should be shown.
+				Timelord._$('.up-next').removeClass('hidden');
 			}
-			Timelord._$('#next-shows').removeClass('hidden');
 
 			for (var i = 0; i < numNextShows; i++) {
 
