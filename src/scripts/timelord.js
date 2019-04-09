@@ -187,9 +187,9 @@ window.Timelord = {
 						// If icetracks hasn't sent this a title yet, it's undefined.
 						// This can happen when the stream is restarted and we're off air
 						if (typeof sources[k]["title"] !== "undefined") {
-    						if (sources[k]["title"] != "  - URY") {
-    							track = sources[k]["title"];
-    						}
+    							if (sources[k]["title"] != "  - URY") {
+    								track = sources[k]["title"];
+    							}
 						}
     					break;
 					}
@@ -407,8 +407,6 @@ window.Timelord = {
 	 * @param {String} track
 	 */
 	setTrack: function(track) {
-	    console.log(Timelord.current_track);
-	    console.log(track);
 		if (Timelord.current_track != track) {
 			Timelord.last_track = Timelord.current_track;
 			Timelord.current_track = track;
