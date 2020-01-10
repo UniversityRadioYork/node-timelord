@@ -80,6 +80,8 @@ window.Timelord = {
 			} else {
 				Timelord.setCurrentShowName('News ends in ' + (60 - second) + '...', 'news');
 			}
+		}else if((t.hours() == 13) && (t.minutes() == 50)){
+			Timelord.setCurrentShowName("Merry 1350!", "news");
 		}
 	},
 
