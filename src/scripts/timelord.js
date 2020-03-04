@@ -142,7 +142,7 @@ window.Timelord = {
 				Timelord.setStudioPowerLevel(data.payload);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateStudioInfo, Timelord._config.request_timeout_low_pri);
+				setTimeout(Timelord.updateStudioInfo, Timelord._config.request_timeout_high_pri);
 			}
 		});
 
