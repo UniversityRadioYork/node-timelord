@@ -123,7 +123,7 @@ window.Timelord = {
 				}
 			},
 			complete: function () {
-				setTimeout(Timelord.updateBreakingNews, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateBreakingNews, Timelord._config.request_timeout_low_pri);
 			}
 		});
 
@@ -142,7 +142,7 @@ window.Timelord = {
 				Timelord.setStudioPowerLevel(data.payload);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateStudioInfo, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateStudioInfo, Timelord._config.request_timeout_high_pri);
 			}
 		});
 
@@ -161,7 +161,7 @@ window.Timelord = {
 				Timelord.setShows(data.payload);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateShowInfo, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateShowInfo, Timelord._config.request_timeout_low_pri);
 			}
 		});
 
@@ -199,7 +199,7 @@ window.Timelord = {
 				Timelord.setTrack(track);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateTrack, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateTrack, Timelord._config.request_timeout_high_pri);
 			},
 			error: function() {
 				Timelord.setTrack("");
@@ -236,7 +236,7 @@ window.Timelord = {
 				Timelord.setObitAlert(data.payload);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateObitAlert, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateObitAlert, Timelord._config.request_timeout_low_pri);
 			}
 		});
 
@@ -254,7 +254,7 @@ window.Timelord = {
 				Timelord.setSilenceAlert(data.payload);
 			},
 			complete: function () {
-				setTimeout(Timelord.updateSilenceAlert, Timelord._config.request_timeout);
+				setTimeout(Timelord.updateSilenceAlert, Timelord._config.request_timeout_high_pri);
 			}
 		});
 

@@ -22,7 +22,8 @@
 	"long": 20
   },
   "icecast_json_url": "http://audio.ury.org.uk/status-json.xsl",
-  "request_timeout": 3000,
+  "request_timeout_high_pri": 3000,
+  "request_timeout_low_pri": 10000,
   "short_name": "URY",
   "long_name": "University Radio York",
   "refresh_on_error": false
