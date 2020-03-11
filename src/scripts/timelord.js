@@ -82,6 +82,9 @@ window.Timelord = {
 			}
 		}else if((t.hours() == 13) && (t.minutes() == 50)){
 			Timelord.setCurrentShowName("Merry 1350!", "news");
+		}else{
+			// Once news finishes, update show title to replace it.
+			Timelord.setCurrentShowName(shows.current.title);
 		}
 	},
 
