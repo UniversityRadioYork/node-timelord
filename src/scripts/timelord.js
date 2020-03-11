@@ -17,6 +17,7 @@ window.Timelord = {
 	news: false,
 	last_track: "",
 	current_track: "",
+	current_show_name: "",
 	silence: false,
 
 	/**
@@ -84,7 +85,7 @@ window.Timelord = {
 			Timelord.setCurrentShowName("Merry 1350!", "news");
 		}else{
 			// Once news finishes, update show title to replace it.
-			Timelord.setCurrentShowName(shows.current.title);
+			Timelord.setCurrentShowName(Timelord.current_show_name);
 		}
 	},
 
@@ -416,7 +417,7 @@ window.Timelord = {
 			Timelord.last_track = Timelord.current_track;
 			Timelord.current_track = track;
 		}
-		
+
 		if (Timelord.current_track != "") {
 			heading = "Now Playing:";
 			Timelord._$('#current-track').removeClass('inactive');
@@ -441,8 +442,9 @@ window.Timelord = {
 	 */
 	setShows: function (shows) {
 
+		Timelord.current_show_name = shows.current.title;
 		if (!Timelord.news) {
-			Timelord.setCurrentShowName(shows.current.title);
+			Timelord.setCurrentShowName(Timelord.current_show_name);
 		}
 
 		Timelord.setNextShowsInfo(shows.next);
@@ -467,7 +469,7 @@ window.Timelord = {
 				//Only one of the .up-next's should be shown.
 				Timelord._$('#next1').addClass('hidden');
 				Timelord._$('#next0').removeClass('hidden');
-				
+
 			//Else, if there are two shows (normal term-time)
 			} else {
 				// All .up-next's should be shown.
