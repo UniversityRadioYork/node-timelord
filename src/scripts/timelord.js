@@ -11,7 +11,8 @@ window.Timelord = {
 		s1: false, //studio1
 		s2: false, //studio2
 		s3: true, //jukebox
-		s4: false //OB
+		s4: false, //OB
+		s5: false // WebStudio
 	},
 
 	news: false,
@@ -271,7 +272,7 @@ window.Timelord = {
 	 */
 	setStudioPowerLevel: function (data) {
 
-		for (var i = 1; i <= 4; i++) {
+		for (var i = 1; i <= 5; i++) {
 			if (data['s' + i + 'power']) {
 				Timelord.setAlert('s' + i, (data.studio == i) ?  'good' : 'standby');
 				if (!Timelord.studioinfo['s' + i] &&
@@ -363,6 +364,7 @@ window.Timelord = {
 			.removeClass('studio2')
 			.removeClass('studio3')
 			.removeClass('studio4')
+			.removeClass('studio5')
 			.removeClass('studio8');
 
 		Timelord._$('#studio').addClass('studio' + studio);
@@ -381,6 +383,9 @@ window.Timelord = {
 				break;
 			case 4:
 				studioText = 'Outside Broadcast';
+				break;
+			case 5:
+				studioText = "WebStudio" + onAirText;
 				break;
 			case 8:
 				studioText = 'Station is Off Air';

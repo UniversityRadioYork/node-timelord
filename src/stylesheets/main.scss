@@ -84,7 +84,11 @@ footer.sticky {
 }
 
 #alerts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   & > * {
+    flex: 1;
     padding: 10px 0;
 
     @media (max-width: $footer-mobile-breakpoint) {
@@ -182,6 +186,11 @@ footer.sticky {
     //Outside Broadcast
     &.studio4 {
       color: #bb00dc;
+    }
+
+    // WebStudio
+    &.studio5 {
+      color: #b5009b;
     }
 
     //Off Air
