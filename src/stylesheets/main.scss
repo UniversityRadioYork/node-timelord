@@ -1,294 +1,232 @@
 /* Set up some variables */
-$font_main: "Source Sans Pro", "sans-serif";
-$font_bracket: "Times New Roman", "serif";
 
+$font_main: "Source Sans Pro",
+"sans-serif";
+$font_bracket: "Times New Roman",
+"serif";
 $footer_height: 130px;
-
 $footer-mobile-height: 35px;
 $footer-mobile-breakpoint: 500px;
-
 $widescreen-breakpoint: 1600px;
-
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  background-color: black;
-  font-family: $font_main;
-  color: white;
-  font-size: 1.3vmin;
-  height: 100vh;
-
+    background-color: black;
+    font-family: $font_main;
+    color: white;
+    font-size: 1.3vmin;
+    height: 100vh;
 }
 
 .inactive {
-  color: darkgrey;
+    color: darkgrey;
 }
 
 .text-center {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
 }
 
 footer.sticky {
-
-  width: 100%;
-  background: #000;
-  @media (max-width: $footer-mobile-breakpoint) {
-	  height: $footer-mobile-height;
-  }
-
-  .container {
-	margin-top: 10px;
-  }
-
+    width: 100%;
+    background: #000;
+    @media (max-width: $footer-mobile-breakpoint) {
+        height: $footer-mobile-height;
+    }
+    .container {
+        margin-top: 10px;
+    }
 }
 
 #breaking-news {
-  border: 3px solid #F00;
+    border: 3px solid #F00;
 }
 
 #breaking-news .content {
-  font-weight: bold;
-  color: #F00;
-  font-size: 5em;
+    font-weight: bold;
+    color: #F00;
+    font-size: 5em;
 }
 
-#breaking-news .content iframe{
-  margin-bottom: -0.35em;
+#breaking-news .content iframe {
+    margin-bottom: -0.35em;
 }
 
 .up-next {
-  font-size: 2.8em;
-  font-variant: small-caps;
+    font-size: 2.8em;
+    font-variant: small-caps;
 }
 
 #status {
-  padding: 0;
-  text-align: center;
-  font-size: 0.9em;
-
-  border-bottom: 0;
-  overflow: hidden;
-
-  vertical-align: middle;
-
-  .pull-left {
-    padding: 0 10px;
-    font-size: 0.7em;
-
-  }
+    padding: 0;
+    text-align: center;
+    font-size: 0.9em;
+    border-bottom: 0;
+    overflow: hidden;
+    vertical-align: middle;
+    .pull-left {
+        padding: 0 10px;
+        font-size: 0.7em;
+    }
 }
 
 #alerts {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  & > * {
-    flex: 1;
-    padding: 10px 0;
-
-    @media (max-width: $footer-mobile-breakpoint) {
-      height: $footer-mobile-height;
-
-      padding-top: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    &>* {
+        flex: 1;
+        padding: 10px 0;
+        @media (max-width: $footer-mobile-breakpoint) {
+            height: $footer-mobile-height;
+            padding-top: 8px;
+        }
+        text-align: center;
+        border: 3px solid white;
+        font-size: 2.5em;
+        // At small sizes just make the font size
+        // responsive to the screen width
+        @media (max-width: 768px) {
+            font-size: 3.5vw;
+        }
+        &.worse {
+            border: 3px solid #F00;
+            color: #F00;
+            font-weight: bold;
+        }
+        &.bad {
+            border: 3px solid #F00;
+            color: #F00;
+        }
+        &.standby {
+            border: 3px solid orange;
+            color: orange;
+        }
+        &.good {
+            border: 3px solid #00FF00;
+            color: #00FF00;
+        }
     }
-
-    text-align: center;
-
-    border: 3px solid white;
-
-    font-size: 2.5em;
-
-    // At small sizes just make the font size
-    // responsive to the screen width
-    @media (max-width: 768px) {
-      font-size: 3.5vw;
-    }
-
-    &.worse {
-      border: 3px solid #F00;
-      color: #F00;
-
-      font-weight: bold;
-    }
-
-    &.bad {
-      border: 3px solid #F00;
-      color: #F00;
-    }
-
-    &.standby {
-      border: 3px solid orange;
-      color: orange;
-    }
-
-    &.good {
-      border: 3px solid #00FF00;
-      color: #00FF00;
-    }
-  }
 }
 
-
 .main {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr max-content;
-  grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content;
-  grid-template-areas: 
-  "weather date breaking-news"
-  "current-show current-show breaking-news"
-  "studio studio breaking-news"
-  "time time breaking-news"
-  "current-track current-track breaking-news"
-  "next0 next1 breaking-news"
-  "footer footer breaking-news";
-
-  @media (max-width: $widescreen-breakpoint) {
-    grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content min-content;
-    grid-template-areas: 
-    "weather date"
-    "current-show current-show"
-    "studio studio"
-    "time time"
-    "current-track current-track"
-    "next0 next1"
-    "breaking-news breaking-news"
-    "footer footer";
-  }
-
-  #studio {
-    grid-area: studio;
-
-    font-weight: bold;
-    font-size: 6.5em;
-
-    //Studio 1
-    &.studio1 {
-      color: red;
-    }
-
-    //Studio 2
-    &.studio2 {
-      color: rgb(36, 110, 230);
-    }
-
-    //Jukebox
-    &.studio3 {
-      color: #0F0;
-    }
-
-    //Outside Broadcast
-    &.studio4 {
-      color: #bb00dc;
-    }
-
-    // WebStudio
-    &.studio5 {
-      color: #b5009b;
-    }
-
-    //Off Air
-    &.studio8 {
-      color: orange;
-    }
-  }
-
-  #date {
-    grid-area: date;
-
-    font-size: 3.5em;
-    text-align: right;
-    align-self: start;
-    padding: 0 10px;
-  }
-
-  #time {
-    grid-area: time;
-
-    font-size: 12em;
-    line-height: 1em;
-
-    // At small sizes just make the font size
-    // responsive to the screen height
-    @media (max-width: 360px) {
-	    font-size: 25vw;
-    }
-  }
-
-  #current-show-title {
-    grid-area: current-show;
-
-    font-size: 3.8em;
-    font-variant: small-caps;
-  
-    .content {
-      &::before, &::after {
-        font-family: $font_bracket;
-        font-size: 140%;
-        letter-spacing: 2px;
-        text-shadow: 0 0 30px #17A;
-      }
-    
-      &::before {
-        content: "((";
-      }
-    
-      &::after {
-        content: "))";
-      }
-    
-      .news {
-        color: #2CDFFF;
-      }
-    }
-  }
-
-  #next0 {
-    grid-area: next0;
-
-    align-self: end;
-  }
-
-  #next1 {
-    grid-area: next1;
-
-    align-self: end;
-  }
-
-  #current-track {
-    grid-area: current-track;
-    padding-top: 30px;
-    font-size: 3em;
-    font-variant: small-caps;
-  }
-
-  .footer {
-    grid-area: footer;
-  }
-
-  #breaking-news {
-    grid-area: breaking-news;
+    width: 100%;
     height: 100%;
-    width: 30vw;
-   
+    display: grid;
+    grid-template-columns: 1fr 1fr max-content;
+    grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content;
+    grid-template-areas: "weather date breaking-news" "current-show current-show breaking-news" "studio studio breaking-news" "time time breaking-news" "current-track current-track breaking-news" "next0 next1 breaking-news" "footer footer breaking-news";
     @media (max-width: $widescreen-breakpoint) {
-      height: 25vh;
-      width: 100%;
+        grid-auto-rows: 1fr min-content min-content min-content min-content 2fr min-content min-content;
+        grid-template-areas: "weather date" "current-show current-show" "studio studio" "time time" "current-track current-track" "next0 next1" "breaking-news breaking-news" "footer footer";
     }
-    
-    .content {
-      display: initial;
-
-      iframe {
-        border: none;
-      }
+    #studio {
+        grid-area: studio;
+        font-weight: bold;
+        font-size: 6.5em;
+        //AutoNews
+        &.studio0 {
+            color: #2CDFFF;
+        }
+        //Studio 1
+        &.studio1 {
+            color: red;
+        }
+        //Studio 2
+        &.studio2 {
+            color: rgb(36, 110, 230);
+        }
+        //Jukebox
+        &.studio3 {
+            color: #0F0;
+        }
+        //Outside Broadcast
+        &.studio4 {
+            color: #bb00dc;
+        }
+        // WebStudio
+        &.studio5 {
+            color: #b5009b;
+        }
+        //Off Air
+        &.studio8 {
+            color: orange;
+        }
     }
-  }
-
+    #date {
+        grid-area: date;
+        font-size: 3.5em;
+        text-align: right;
+        align-self: start;
+        padding: 0 10px;
+    }
+    #time {
+        grid-area: time;
+        font-size: 12em;
+        line-height: 1em;
+        // At small sizes just make the font size
+        // responsive to the screen height
+        @media (max-width: 360px) {
+            font-size: 25vw;
+        }
+    }
+    #current-show-title {
+        grid-area: current-show;
+        font-size: 3.8em;
+        font-variant: small-caps;
+        .content {
+            &::before,
+            &::after {
+                font-family: $font_bracket;
+                font-size: 140%;
+                letter-spacing: 2px;
+                text-shadow: 0 0 30px #17A;
+            }
+            &::before {
+                content: "((";
+            }
+            &::after {
+                content: "))";
+            }
+            .news {
+                color: #2CDFFF;
+            }
+        }
+    }
+    #next0 {
+        grid-area: next0;
+        align-self: end;
+    }
+    #next1 {
+        grid-area: next1;
+        align-self: end;
+    }
+    #current-track {
+        grid-area: current-track;
+        padding-top: 30px;
+        font-size: 3em;
+        font-variant: small-caps;
+    }
+    .footer {
+        grid-area: footer;
+    }
+    #breaking-news {
+        grid-area: breaking-news;
+        height: 100%;
+        width: 30vw;
+        @media (max-width: $widescreen-breakpoint) {
+            height: 25vh;
+            width: 100%;
+        }
+        .content {
+            display: initial;
+            iframe {
+                border: none;
+            }
+        }
+    }
 }
