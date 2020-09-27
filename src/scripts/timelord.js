@@ -360,6 +360,7 @@ window.Timelord = {
 	setStudio: function (studio) {
 
 		Timelord._$('#studio')
+			.removeClass("studio0") // AutoNews
 			.removeClass('studio1')
 			.removeClass('studio2')
 			.removeClass('studio3')
@@ -367,11 +368,22 @@ window.Timelord = {
 			.removeClass('studio5')
 			.removeClass('studio8');
 
+		var t = moment();
+		if (studio === 5 && ((t.minutes() === 59 && t.seconds() >= 45) ||
+			t.minutes() === 00 ||
+			t.minutes() === 01 ||
+			(t.minutes() === 02 && t.seconds() < 02))) {
+			studio = 0;
+		}
+
 		Timelord._$('#studio').addClass('studio' + studio);
 
 		var studioText;
 		var onAirText = ' is On Air';
 		switch (studio) {
+			case 0:
+				studioText = 'AutoNews' + onAirText;
+				break;
 			case 1:
 				studioText = 'Studio Red' + onAirText;
 				break;

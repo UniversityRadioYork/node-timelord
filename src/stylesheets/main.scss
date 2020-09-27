@@ -168,6 +168,11 @@ footer.sticky {
     font-weight: bold;
     font-size: 6.5em;
 
+    //AutoNews
+    &.studio0 {
+	color: #2CDFFF;
+    }
+
     //Studio 1
     &.studio1 {
       color: red;
