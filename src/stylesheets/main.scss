@@ -7,7 +7,7 @@ $footer_height: 130px;
 $footer-mobile-height: 35px;
 $footer-mobile-breakpoint: 500px;
 
-$widescreen-breakpoint: 1600px;
+$widescreen-breakpoint: 1000px;
 
 html {
   position: relative;
@@ -59,6 +59,23 @@ footer.sticky {
 
 #breaking-news .content iframe{
   margin-bottom: -0.35em;
+}
+
+#news-counts {
+  border: 3px solid #2CDFFF;
+}
+
+#news-counts .content {
+  font-weight: bold;
+  color: #2CDFFF;
+}
+
+#news-counts .content .content-sm {
+  font-size: 10em;
+}
+
+#news-counts .content .content-lg {
+  font-size: 30em;
 }
 
 .up-next {
@@ -216,7 +233,7 @@ footer.sticky {
   #time {
     grid-area: time;
 
-    font-size: 12em;
+    font-size: 20em;
     line-height: 1em;
 
     // At small sizes just make the font size
@@ -293,6 +310,21 @@ footer.sticky {
       iframe {
         border: none;
       }
+    }
+  }
+
+  #news-counts {
+    grid-area: breaking-news;
+    height: 100%;
+    width: 30vw;
+   
+    @media (max-width: $widescreen-breakpoint) {
+      height: 40vh;
+      width: 100%;
+    }
+    
+    .content {
+      display: initial;
     }
   }
 
