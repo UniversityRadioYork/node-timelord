@@ -71,21 +71,25 @@ window.Timelord = {
 		if (Timelord.news) {
 			if (minute == 59) {
 				if (second < 45) {
-					Timelord.setCurrentShowName("News intro in " + (45 - second) + "...", 'news');
+					Timelord.setNewsCountdown("NEWS INTRO", (45 - second));
 				} else if (second <= 52) {
-					Timelord.setCurrentShowName((52 - second) + " until voice over...", 'news');
+					Timelord.setNewsCountdown("VOICE OVER", (52-second));
 				} else {
+					Timelord.setNewsCountdown(false, 0);
 					Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
 				}
 			} else if (minute === 0) {
+				Timelord.setNewsCountdown(false, 0);
 				Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
 			} else {
-				Timelord.setCurrentShowName('News ends in ' + (60 - second) + '...', 'news');
+				Timelord.setNewsCountdown("NEWS END", (60 - second));
+				Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
 			}
 		}else if((t.hours() == 13) && (t.minutes() == 50)){
 			Timelord.setCurrentShowName("Merry 1350!", "news");
 		}else{
 			// Once news finishes, update show title to replace it.
+			Timelord.setNewsCountdown(false, 0);
 			Timelord.setCurrentShowName(Timelord.current_show_name);
 		}
 	},
@@ -311,6 +315,27 @@ window.Timelord = {
 				Timelord._$('.hide-when-breaking-news').removeClass('hidden');
 			}
 		}
+
+	},
+
+	/**
+	 * Sets the news coutdown
+	 *
+	 * @param {String|null|false} comment
+	 * @param {int} count
+	 */
+	 setNewsCountdown: function (comment, count) {
+		
+			if (comment !== null && comment !== false) {
+				Timelord._$('#news-counts').removeClass('hidden')
+				Timelord._$("#news-counts .content .content-sm").text(comment);
+				Timelord._$("#news-counts .content .content-lg").text(count);
+				Timelord._$('.hide-when-breaking-news').addClass('hidden');
+			} else {
+				Timelord._$('#news-counts').addClass('hidden');
+				Timelord._$('.hide-when-breaking-news').removeClass('hidden');
+			}
+		
 
 	},
 
