@@ -72,8 +72,8 @@ window.Timelord = {
 			if (minute == 59) {
 				if (second < 45) {
 					Timelord.setCurrentShowName("News intro in " + (45 - second) + "...", 'news');
-				} else if (second <= 52) {
-					Timelord.setCurrentShowName((52 - second) + " until voice over...", 'news');
+				} else if (second <= 50) {
+					Timelord.setCurrentShowName((50 - second) + " until voice over...", 'news');
 				} else {
 					Timelord.setCurrentShowName(Timelord._config.short_name + ' News', 'news');
 				}
