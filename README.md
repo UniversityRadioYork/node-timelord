@@ -11,7 +11,7 @@ See the [wiki](https://ury.org.uk/ceedox/computing:services:studioclock) for inf
 ### Development
 
 ```sh
-$ git clone github.com/UniversityRadioYork/node-timelord/
+$ git clone https://github.com/UniversityRadioYork/node-timelord/
 $ cd node-timelord
 $ npm install # you should only need to run this once
 $ grunt
@@ -29,7 +29,7 @@ See the [wiki](https://ury.org.uk/ceedox/computing:services:studioclock#building
 You will need some kind of way of serving static files from the `/bin` folder. I.E. Apache, Nginx etc.
 
 ```sh
-$ git clone github.com/UniversityRadioYork/node-timelord/
+$ git clone https://github.com/UniversityRadioYork/node-timelord/
 $ cd node-timelord
 $ npm install # you should only need to run this once
 $ grunt build #will compile all files needed into /bin/
