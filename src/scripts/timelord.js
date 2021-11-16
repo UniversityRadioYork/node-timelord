@@ -163,7 +163,7 @@ window.Timelord = {
 			url: Timelord._config.api_endpoints.currentAndNext,
 			data: Timelord._config.next_show_filtering,
 			success: function (data) {
-				Timelord.setShows(data.payload);
+				Timelord.setShows(data.payload); 
 			},
 			complete: function () {
 				setTimeout(Timelord.updateShowInfo, Timelord._config.request_timeout_low_pri);
@@ -172,14 +172,37 @@ window.Timelord = {
 
 	},
 
+
+	updateTrack: function () {
+		Timelord.callAPI({
+			url: Timelord._config.api_endpoints.nowPlaying,
+			success: function (data) {
+				if (data.payload !== null) {
+					Timelord.setTrack(data.payload.track.artist + " - " + data.payload.track.title);
+				}
+				else {
+					Timelord.setTrack("");
+				}
+			},
+			complete: function () {
+				setTimeout(Timelord.updateTrack, Timelord._config.request_timeout_high_pri);
+			},
+			error: function() {
+				Timelord.setTrack("oh no it's broken");
+			}
+		});
+
+	},
 	/**
 	 * Calls for the Icecast JSON
 	 * and sets the track currently being broadcast.
 	 */
+
+	/*
 	updateTrack: function() {
 
 		Timelord._$.ajax({
-			url: Timelord._config.icecast_json_url,
+			url: Timelord._config.json_api_url,
 			dataType: "json",
 			success: function (data) {
 				sources = data["icestats"]["source"];
@@ -212,6 +235,7 @@ window.Timelord = {
 		});
 
 	},
+	*/
 
 	/**
 	 * Calls the API isSilence, isObitHappening and
@@ -567,7 +591,7 @@ window.Timelord = {
 		}
 
 		if (!options.data.hasOwnProperty("api_key")) {
-			options.data.api_key = Timelord._config.api_key;
+			options.data.api_key = Timelord._config.powerful_api_key;
 		}
 
 		if (!options.hasOwnProperty('error')) {
