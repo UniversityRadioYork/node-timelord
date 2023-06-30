@@ -6,7 +6,7 @@ window.Timelord = {
 	 *
 	 * holds if the selector thinks these are powered or not.
 	 * used to detect if the light should go red on disconnect.
-	*/
+	 */
 	studioinfo: {
 		s1: false, //studio1
 		s2: false, //studio2
@@ -37,15 +37,15 @@ window.Timelord = {
 
 	},
 
-	loop: function() {
+	loop: function () {
 		var init = moment();
 		Timelord.updateTime(init);
 		Timelord.updateNewsMessage(init);
 		var now = moment();
 		var timeout = (now.seconds() - init.seconds() == 0) ?
-		    1000 - now.milliseconds() : 0
+			1000 - now.milliseconds() : 0
 		setTimeout(Timelord.loop,
-			  timeout);
+			timeout);
 
 	},
 
@@ -82,9 +82,9 @@ window.Timelord = {
 			} else {
 				Timelord.setCurrentShowName('News ends in ' + (60 - second) + '...', 'news');
 			}
-		}else if((t.hours() == 13) && (t.minutes() == 50)){
+		} else if ((t.hours() == 13) && (t.minutes() == 50)) {
 			Timelord.setCurrentShowName("Merry 1350!", "news");
-		}else{
+		} else {
 			// Once news finishes, update show title to replace it.
 			Timelord.setCurrentShowName(Timelord.current_show_name);
 		}
@@ -140,6 +140,21 @@ window.Timelord = {
 	 */
 	updateStudioInfo: function () {
 
+		fetch("/fmsel").then(function (r) { return r.text() }).then(function(d){
+			console.log(d);
+			switch (d) {
+				case "0":
+					document.getElementById("fm-info").innerText = "";
+					break;
+				case "1":
+					document.getElementById("fm-info").innerText = "FM: Jukebox";
+					break;
+				case "2":
+					document.getElementById("fm-info").innerText = "FM: AutoNews"
+					break;
+			}
+		});
+
 		Timelord.callAPI({
 			url: Timelord._config.api_endpoints.statusAtTime,
 			success: function (data) {
@@ -176,7 +191,7 @@ window.Timelord = {
 	 * Calls for the Icecast JSON
 	 * and sets the track currently being broadcast.
 	 */
-	updateTrack: function() {
+	updateTrack: function () {
 
 		Timelord._$.ajax({
 			url: Timelord._config.icecast_json_url,
@@ -194,11 +209,11 @@ window.Timelord = {
 						// If icetracks hasn't sent this a title yet, it's undefined.
 						// This can happen when the stream is restarted and we're off air
 						if (typeof sources[k]["title"] !== "undefined") {
-    							if (sources[k]["title"] != "  - URY") {
-    								track = sources[k]["title"];
-    							}
+							if (sources[k]["title"] != "  - URY") {
+								track = sources[k]["title"];
+							}
 						}
-    					break;
+						break;
 					}
 				}
 				Timelord.setTrack(track);
@@ -206,7 +221,7 @@ window.Timelord = {
 			complete: function () {
 				setTimeout(Timelord.updateTrack, Timelord._config.request_timeout_high_pri);
 			},
-			error: function() {
+			error: function () {
 				Timelord.setTrack("");
 			}
 		});
@@ -274,17 +289,17 @@ window.Timelord = {
 
 		for (var i = 1; i <= 5; i++) {
 			if (data['s' + i + 'power']) {
-				Timelord.setAlert('s' + i, (data.studio == i) ?  'good' : 'standby');
+				Timelord.setAlert('s' + i, (data.studio == i) ? 'good' : 'standby');
 				if (!Timelord.studioinfo['s' + i] &&
 					Timelord.studioinfo['s' + i]) {
 					clearTimeout(Timelord.studioinfo['s' + i]);
 				}
 				Timelord.studioinfo[i] = true;
-			// set red disconnection light
+				// set red disconnection light
 			} else if (Timelord.studioinfo[i]) {
 				Timelord.studioinfo[i] = setTimeout("Timelord.studioinfo['" + i + "'] = false;", 30000);
 				Timelord.setAlert('s' + i, 'bad');
-			// relieve red disconnection light
+				// relieve red disconnection light
 			} else if (!Timelord.studioinfo[i]) {
 				Timelord.resetAlert('s' + i);
 			}
@@ -429,7 +444,7 @@ window.Timelord = {
 	 *
 	 * @param {String} track
 	 */
-	setTrack: function(track) {
+	setTrack: function (track) {
 		if (Timelord.current_track != track) {
 			Timelord.last_track = Timelord.current_track;
 			Timelord.current_track = track;
@@ -477,7 +492,7 @@ window.Timelord = {
 		//If no next shows (Off-air off-term)
 		if (!shows || typeof shows[0] == "undefined") {
 			Timelord._$('.up-next').addClass('hidden'); //Both up-next's should be hidden
-		//Else, if there are next shows
+			//Else, if there are next shows
 		} else {
 			var numNextShows = 2;
 			//If there is only one show (last show before end of term)
@@ -487,7 +502,7 @@ window.Timelord = {
 				Timelord._$('#next1').addClass('hidden');
 				Timelord._$('#next0').removeClass('hidden');
 
-			//Else, if there are two shows (normal term-time)
+				//Else, if there are two shows (normal term-time)
 			} else {
 				// All .up-next's should be shown.
 				Timelord._$('.up-next').removeClass('hidden');
@@ -571,9 +586,9 @@ window.Timelord = {
 		}
 
 		if (!options.hasOwnProperty('error')) {
-			options.error = function () {// Refresh the page
+			options.error = function () { // Refresh the page
 				console.error("Failed to call API");
-				if(Timelord._config.refresh_on_error){
+				if (Timelord._config.refresh_on_error) {
 					window.location = window.location.href;
 				}
 			};

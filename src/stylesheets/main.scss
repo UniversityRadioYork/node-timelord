@@ -144,6 +144,7 @@ footer.sticky {
   "weather date breaking-news"
   "current-show current-show breaking-news"
   "studio studio breaking-news"
+  "fm-info fm-info breaking-news"
   "time time breaking-news"
   "current-track current-track breaking-news"
   "next0 next1 breaking-news"
@@ -155,6 +156,7 @@ footer.sticky {
     "weather date"
     "current-show current-show"
     "studio studio"
+    "fm-info fm-info"
     "time time"
     "current-track current-track"
     "next0 next1"
@@ -202,6 +204,12 @@ footer.sticky {
     &.studio8 {
       color: orange;
     }
+  }
+
+  #fm-info {
+    grid-area: fm-info;
+    font-weight: bold;
+    font-size: 5em;
   }
 
   #date {
