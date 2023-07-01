@@ -141,7 +141,6 @@ window.Timelord = {
 	updateStudioInfo: function () {
 
 		fetch("/fmsel").then(function (r) { return r.text() }).then(function(d){
-			console.log(d);
 			switch (d) {
 				case "0":
 					document.getElementById("fm-info").innerText = "";
