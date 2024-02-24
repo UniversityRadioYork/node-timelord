@@ -8,6 +8,18 @@ NodeJS implementation of Timelord
 
 See the [wiki](https://ury.org.uk/ceedox/computing:services:studioclock) for info about the deployment on URY.
 
+### Docker
+
+```
+docker compose up --build
+
+```
+Will build the docker image
+
+```
+docker compose up -d
+```
+Can then be used to run the container in the background, by default using port 8000
 ### Development
 
 ```sh
