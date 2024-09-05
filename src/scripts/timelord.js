@@ -511,6 +511,10 @@ window.Timelord = {
 
 				var show = Timelord._$('#next' + i);
 
+				//If there is more than a day, show some combination of day of week, date, and month depending on length
+				// 6 days is used to show date as otherwise at 7pm friday, a show at 9am friday in a week would show as "09:00 Friday" which is unintuitive
+				// same for month.
+
 				show.find('.name').text(shows[i].title);
 				var time = moment(shows[i].start_time * 1000)
 				if (moment().add(27, 'days').isBefore(time)){
