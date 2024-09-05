@@ -513,10 +513,13 @@ window.Timelord = {
 
 				show.find('.name').text(shows[i].title);
 				var time = moment(shows[i].start_time * 1000)
-				if (moment().add(1, 'days').isBefore(time)) {
-					show.find('.time').text(time.format("HH:mm dddd Do MMMM "));
+				if (moment().add(27, 'days').isBefore(time)){
+					show.find('.time').text(time.format("HH:mm dddd Do MMMM"));
+				} else if (moment().add(6, 'days').isBefore(time)) {
+					show.find('.time').text(time.format("HH:mm dddd Do"));
+				} else if (moment().add(1, 'day').isBefore(time)){
+					show.find('.time').text(time.format("HH:mm dddd"));
 				} else {
-
 					show.find('.time').text(time.format("HH:mm"));
 				}
 
