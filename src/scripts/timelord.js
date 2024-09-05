@@ -512,7 +512,14 @@ window.Timelord = {
 				var show = Timelord._$('#next' + i);
 
 				show.find('.name').text(shows[i].title);
-				show.find('.time').text(moment(shows[i].start_time * 1000).format("HH:mm"));
+				var time = moment(shows[i].start_time * 1000)
+				if (moment().add(1, 'days').isBefore(time)) {
+					show.find('.time').text(time.format("HH:mm dddd Do MMMM "));
+				} else {
+
+					show.find('.time').text(time.format("HH:mm"));
+				}
+
 
 			}
 
