@@ -149,10 +149,11 @@ window.Timelord = {
 					document.getElementById("fm-info").innerText = "FM and DAB: Jukebox";
 					break;
 				case "2":
-					document.getElementById("fm-info").innerText = "FM and DAB: AutoNews"
+					document.getElementById("fm-info").innerText = "FM and DAB: AutoNews";
 					break;
 				case "s":
-					document.getElementById("fm-info").innerText = "FM and DAB Split Sources"
+					document.getElementById("fm-info").innerText = "FM and DAB Split Sources";
+					break;
 			}
 		});
 
